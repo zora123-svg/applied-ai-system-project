@@ -35,7 +35,7 @@ The judge adds up all the points, sorts every song from highest to lowest, and h
 
 **One change made from the original:** The genre bonus started at +2.0, which meant it dominated everything else. After testing, it was reduced to +1.0 and the energy bonus was doubled to compensate, producing rankings that better matched what a listener would actually expect.
 
----
+----
 
 ## 4. Data  
 
