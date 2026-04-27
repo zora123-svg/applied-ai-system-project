@@ -60,7 +60,12 @@ def test_extract_profile_infers_keywords_and_seed_artist():
 
 class DummyApiClient:
     def search_artist(self, artist_name: str, limit: int = 1):
-        return ["R. Kelly"] if artist_name.lower().strip() in {"r.kelly", "r kelly", "r"} else []
+        normalized = artist_name.lower().strip()
+        if normalized in {"r.kelly", "r kelly", "r"}:
+            return ["R. Kelly"]
+        if normalized == "radiohead":
+            return ["Radiohead"]
+        return []
 
     def get_artist_tags(self, artist_name: str, limit: int = 5):
         if artist_name.lower().strip() == "radiohead":
@@ -122,7 +127,8 @@ def test_run_stops_when_quality_threshold_is_met():
     recommendations, reasoning = agent.run("I want relaxed music", make_songs(), k=1, mode="relevance")
 
     assert len(recommendations) == 1
-    assert "SATISFIED" in reasoning
+    assert "ITERATION 2" in reasoning
+    assert "SATISFIED" not in reasoning
     assert Path("logs") .exists()
 
 
