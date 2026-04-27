@@ -1,9 +1,10 @@
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from src.api_client import LastFmAPIError, LastFmClient
+from src.evaluators import EvaluationProvider, HeuristicEvaluator
 from src.recommender import recommend_songs
 from src.retriever import build_candidate_songs
 
@@ -126,12 +127,19 @@ ERA_KEYWORDS = {
 
 
 class RecommenderAgent:
-    def __init__(self, api_client: LastFmClient = None, max_iterations: int = 3, quality_threshold: int = 7):
+    def __init__(
+        self,
+        api_client: LastFmClient = None,
+        max_iterations: int = 3,
+        quality_threshold: int = 7,
+        evaluator: Optional[EvaluationProvider] = None,
+    ):
         self.api_client = api_client
         self.max_iterations = max_iterations
         self.quality_threshold = quality_threshold
         self.log_path = Path("logs") / "agent.log"
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
+        self.evaluator = evaluator or HeuristicEvaluator(api_client=self.api_client, logger=self.append_log)
 
     def extract_profile(self, query: str, songs: List[Dict]) -> Dict:
         normalized = query.lower()
@@ -159,74 +167,7 @@ class RecommenderAgent:
         return recommendations
 
     def evaluate_results(self, query: str, profile: Dict, recommendations: List[Tuple[Dict, float, str]]) -> Dict:
-        if not recommendations:
-            return {
-                "quality_score": 1,
-                "feedback": "No recommendations were returned.",
-                "should_refine": False,
-                "refined_profile": {},
-            }
-
-        scores = [score for _, score, _ in recommendations]
-        avg_score = sum(scores) / len(scores)
-        quality_score = min(10, max(1, int(round(avg_score / 12.0 * 10.0))))
-
-        energies = [song["energy"] for song, _, _ in recommendations]
-        valences = [song["valence"] for song, _, _ in recommendations]
-        avg_energy = sum(energies) / len(energies)
-        avg_valence = sum(valences) / len(valences)
-
-        refined_profile = {}
-        feedback = []
-        normalized = query.lower()
-
-        if self._contains_any(normalized, ["upbeat", "energetic", "high energy", "lively"]):
-            if avg_energy < profile["target_energy"] + 0.1:
-                new_energy = min(1.0, profile["target_energy"] + 0.15)
-                refined_profile["target_energy"] = new_energy
-                feedback.append("Increase target energy to better match upbeat requests.")
-        if self._contains_any(normalized, ["chill", "relaxed", "mellow"]):
-            if avg_energy > profile["target_energy"] - 0.1:
-                new_energy = max(0.0, profile["target_energy"] - 0.15)
-                refined_profile["target_energy"] = new_energy
-                feedback.append("Lower target energy to match chill requests.")
-        if self._contains_any(normalized, ["happy", "joyful", "bright"]):
-            if avg_valence < profile["target_valence"] + 0.1:
-                new_valence = min(1.0, profile["target_valence"] + 0.15)
-                refined_profile["target_valence"] = new_valence
-                feedback.append("Raise target valence for happier results.")
-        if self._contains_any(normalized, ["sad", "moody", "melancholic"]):
-            if avg_valence > profile["target_valence"] - 0.1:
-                new_valence = max(0.0, profile["target_valence"] - 0.15)
-                refined_profile["target_valence"] = new_valence
-                feedback.append("Lower target valence for sad or moody requests.")
-
-        if quality_score < self.quality_threshold and not refined_profile:
-            if avg_score < 6.0:
-                new_energy = min(1.0, profile["target_energy"] + 0.1)
-                refined_profile["target_energy"] = new_energy
-                feedback.append("Refining energy target to improve recommendation quality.")
-
-        artist_reference = profile.get("seed_artist", "")
-        if self._is_artist_style_query(normalized, artist_reference):
-            style_targets = self._get_artist_style_targets(artist_reference)
-            if not self._has_artist_style_alignment(recommendations, artist_reference, style_targets):
-                artist_genre = style_targets.get("genre", "")
-                if artist_genre and artist_genre != profile.get("favorite_genre", ""):
-                    refined_profile["favorite_genre"] = artist_genre
-                refined_profile["target_danceability"] = min(1.0, profile.get("target_danceability", 0.65) + 0.08)
-                feedback.append(
-                    f"Top results are not style-aligned with {artist_reference}; refining genre and groove targets."
-                )
-
-        reason = " | ".join(feedback) if feedback else "Results appear reasonable, no further refinement suggested."
-        should_refine = bool(refined_profile)
-        return {
-            "quality_score": quality_score,
-            "feedback": reason,
-            "should_refine": should_refine,
-            "refined_profile": refined_profile,
-        }
+        return self.evaluator.evaluate(query, profile, recommendations, quality_threshold=self.quality_threshold)
 
     def merge_profile(self, profile: Dict, refined: Dict) -> Dict:
         merged = profile.copy()
@@ -316,51 +257,6 @@ class RecommenderAgent:
         if "funk" in normalized_tag:
             return "pop"
         return ""
-
-    def _is_artist_style_query(self, normalized_query: str, seed_artist: str) -> bool:
-        if not seed_artist:
-            return False
-        intent_keywords = ["like", "similar to", "in the style of", "sounds like", "sound like"]
-        return self._contains_any(normalized_query, intent_keywords)
-
-    def _get_artist_style_targets(self, seed_artist: str) -> Dict:
-        targets = {"genre": "", "similar_artists": []}
-        if not self.api_client or not seed_artist:
-            return targets
-
-        try:
-            tags = self.api_client.get_artist_tags(seed_artist, limit=5)
-            for tag in tags:
-                mapped = self._map_tag_to_genre(tag)
-                if mapped:
-                    targets["genre"] = mapped
-                    break
-        except LastFmAPIError as exc:
-            self.append_log(f"API ERROR: {exc}")
-
-        try:
-            similar_artists = self.api_client.get_similar_artists(seed_artist, limit=10)
-            targets["similar_artists"] = [artist.lower().strip() for artist in similar_artists]
-        except LastFmAPIError as exc:
-            self.append_log(f"API ERROR: {exc}")
-
-        return targets
-
-    def _has_artist_style_alignment(self, recommendations: List[Tuple[Dict, float, str]], seed_artist: str, style_targets: Dict) -> bool:
-        normalized_seed = seed_artist.lower().strip()
-        similar_artists = set(style_targets.get("similar_artists", []))
-        target_genre = style_targets.get("genre", "")
-
-        for song, _, _ in recommendations:
-            song_artist = song.get("artist", "").lower().strip()
-            song_genre = song.get("genre", "").lower().strip()
-            if normalized_seed and (song_artist == normalized_seed or normalized_seed in song_artist):
-                return True
-            if song_artist in similar_artists:
-                return True
-            if target_genre and song_genre == target_genre:
-                return True
-        return False
 
     def _infer_mood(self, query: str) -> str:
         for keyword, mood in MOOD_KEYWORDS.items():
