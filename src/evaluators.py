@@ -82,6 +82,8 @@ class HeuristicEvaluator:
 
     def _map_tag_to_genre(self, tag: str) -> str:
         normalized_tag = tag.lower().strip()
+        if "k-pop" in normalized_tag or "kpop" in normalized_tag or "korean pop" in normalized_tag:
+            return "k-pop"
         if "rock" in normalized_tag:
             return "rock"
         if "pop" in normalized_tag:

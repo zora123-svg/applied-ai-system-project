@@ -52,6 +52,22 @@ GENRE_KEYWORDS = {
     "country": "country",
     "synthwave": "synthwave",
     "indie pop": "indie pop",
+    "kpop": "k-pop",
+    "k-pop": "k-pop",
+    "korean pop": "k-pop",
+    "afrobeats": "afrobeats",
+    "afrobeat": "afrobeats",
+    "reggaeton": "reggaeton",
+    "latin pop": "latin pop",
+    "house": "house",
+    "techno": "techno",
+    "drill": "drill",
+    "funk": "funk",
+    "soul": "soul",
+    "r&b": "r&b",
+    "rnb": "r&b",
+    "punk": "punk",
+    "alternative rock": "rock",
 }
 
 MOOD_KEYWORDS = {
@@ -242,6 +258,8 @@ class RecommenderAgent:
         normalized_tag = tag.lower().strip()
         if normalized_tag in GENRE_KEYWORDS:
             return GENRE_KEYWORDS[normalized_tag]
+        if "k-pop" in normalized_tag or "kpop" in normalized_tag or "korean pop" in normalized_tag:
+            return "k-pop"
         if "rock" in normalized_tag:
             return "rock"
         if "pop" in normalized_tag:
