@@ -1,0 +1,104 @@
+[2026-04-27 05:09:20] QUERY: "I want relaxed music"
+[2026-04-27 05:10:20] QUERY: "I want relaxed music"
+[2026-04-27 05:10:20] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.35, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 05:10:20] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.10
+[2026-04-27 05:10:20] ITERATION 1 | quality: 8/10 | feedback: Lower target energy to match chill requests.
+[2026-04-27 05:10:20] FINAL: 1 candidate(s) returned
+[2026-04-27 05:36:04] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-27 05:36:04] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.85, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 05:36:04] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=11.37
+[2026-04-27 05:36:04] ITERATION 1 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 05:36:04] FINAL: 5 candidate(s) returned
+[2026-04-27 05:37:35] QUERY: "I want something like Michael Jackson  but more upbeat"
+[2026-04-27 05:37:35] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.85, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 05:37:35] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=11.37
+[2026-04-27 05:37:35] ITERATION 1 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 05:37:35] FINAL: 5 candidate(s) returned
+[2026-04-27 05:38:24] QUERY: "I want something like R.Kelly  but more upbeat"
+[2026-04-27 05:38:24] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.85, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 05:38:24] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=11.37
+[2026-04-27 05:38:24] ITERATION 1 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 05:38:24] FINAL: 5 candidate(s) returned
+[2026-04-27 05:41:30] QUERY: "I want something like R.Kell"
+[2026-04-27 05:41:30] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 05:41:30] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=11.03
+[2026-04-27 05:41:30] ITERATION 1 | quality: 8/10 | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-27 05:41:30] FINAL: 5 candidate(s) returned
+[2026-04-27 05:43:02] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-27 05:43:02] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.85, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 05:43:02] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=11.37
+[2026-04-27 05:43:02] ITERATION 1 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 05:43:02] FINAL: 5 candidate(s) returned
+[2026-04-27 05:45:56] QUERY: "I want relaxed music"
+[2026-04-27 05:45:56] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.35, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 05:45:56] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.10
+[2026-04-27 05:45:56] ITERATION 1 | quality: 8/10 | feedback: Lower target energy to match chill requests.
+[2026-04-27 05:45:56] FINAL: 1 candidate(s) returned
+[2026-04-27 05:47:21] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-27 05:47:21] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.85, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 05:47:21] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=11.37
+[2026-04-27 05:47:21] ITERATION 1 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 05:47:21] FINAL: 5 candidate(s) returned
+[2026-04-27 05:47:33] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-27 05:47:33] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.85, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 05:47:33] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=11.37
+[2026-04-27 05:47:33] ITERATION 1 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 05:47:33] FINAL: 5 candidate(s) returned
+[2026-04-27 06:56:20] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-27 06:56:20] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.85, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 06:56:20] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=11.37
+[2026-04-27 06:56:20] ITERATION 1 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 06:56:20] FINAL: 5 candidate(s) returned
+[2026-04-27 07:15:48] QUERY: "I want relaxed music"
+[2026-04-27 07:15:48] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.35, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:15:48] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.10
+[2026-04-27 07:15:48] ITERATION 1 | quality: 8/10 | feedback: Lower target energy to match chill requests.
+[2026-04-27 07:15:48] REFINED PROFILE: {'target_energy': 0.19999999999999998}
+[2026-04-27 07:15:48] ITERATION 2 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.19999999999999998, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:15:48] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.80
+[2026-04-27 07:15:48] ITERATION 2 | quality: 7/10 | feedback: Lower target energy to match chill requests.
+[2026-04-27 07:15:48] REFINED PROFILE: {'target_energy': 0.04999999999999999}
+[2026-04-27 07:15:48] FINAL: 1 candidate(s) returned
+[2026-04-27 07:16:24] QUERY: "I want relaxed music"
+[2026-04-27 07:16:24] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.35, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:16:24] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.10
+[2026-04-27 07:16:24] ITERATION 1 | quality: 8/10 | feedback: Lower target energy to match chill requests.
+[2026-04-27 07:16:24] REFINED PROFILE: {'target_energy': 0.19999999999999998}
+[2026-04-27 07:16:24] ITERATION 2 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.19999999999999998, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:16:24] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.80
+[2026-04-27 07:16:24] ITERATION 2 | quality: 7/10 | feedback: Lower target energy to match chill requests.
+[2026-04-27 07:16:24] REFINED PROFILE: {'target_energy': 0.04999999999999999}
+[2026-04-27 07:16:24] FINAL: 1 candidate(s) returned
+[2026-04-27 07:18:28] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-27 07:18:28] ITERATION 1 | profile: {'favorite_genre': 'rock', 'favorite_mood': 'happy', 'target_energy': 0.85, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:18:28] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=10.37
+[2026-04-27 07:18:28] ITERATION 1 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 07:18:28] REFINED PROFILE: {'target_energy': 1.0}
+[2026-04-27 07:18:28] ITERATION 2 | profile: {'favorite_genre': 'rock', 'favorite_mood': 'happy', 'target_energy': 1.0, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:18:28] ITERATION 2 | top_result: Sunrise City (Neon Echo) score=10.07
+[2026-04-27 07:18:28] ITERATION 2 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 07:18:28] REFINED PROFILE: {'target_energy': 1.0}
+[2026-04-27 07:18:28] ITERATION 3 | profile: {'favorite_genre': 'rock', 'favorite_mood': 'happy', 'target_energy': 1.0, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:18:28] ITERATION 3 | top_result: Sunrise City (Neon Echo) score=10.07
+[2026-04-27 07:18:28] ITERATION 3 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 07:18:28] REFINED PROFILE: {'target_energy': 1.0}
+[2026-04-27 07:18:28] FINAL: 5 candidate(s) returned
+[2026-04-27 07:19:31] QUERY: "I want something like BTS  but more upbeat"
+[2026-04-27 07:19:31] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.85, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:19:31] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=11.37
+[2026-04-27 07:19:31] ITERATION 1 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 07:19:31] REFINED PROFILE: {'target_energy': 1.0}
+[2026-04-27 07:19:32] ITERATION 2 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 1.0, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:19:32] ITERATION 2 | top_result: Sunrise City (Neon Echo) score=11.07
+[2026-04-27 07:19:32] ITERATION 2 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 07:19:32] REFINED PROFILE: {'target_energy': 1.0}
+[2026-04-27 07:19:32] ITERATION 3 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 1.0, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 120.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:19:32] ITERATION 3 | top_result: Sunrise City (Neon Echo) score=11.07
+[2026-04-27 07:19:32] ITERATION 3 | quality: 8/10 | feedback: Increase target energy to better match upbeat requests.
+[2026-04-27 07:19:32] REFINED PROFILE: {'target_energy': 1.0}
+[2026-04-27 07:19:32] FINAL: 5 candidate(s) returned
+[2026-04-27 07:20:05] QUERY: "I want something like Gospel music"
+[2026-04-27 07:20:05] ITERATION 1 | profile: {'favorite_genre': 'indie pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:20:05] ITERATION 1 | top_result: Rooftop Lights (Indigo Parade) score=11.16
+[2026-04-27 07:20:05] ITERATION 1 | quality: 8/10 | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-27 07:20:05] FINAL: 5 candidate(s) returned

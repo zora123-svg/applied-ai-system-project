@@ -1,33 +1,56 @@
-# 🎵 Music Recommender Simulation
+# 🎵 Agentic Music Recommendation System
 
 ## Project Summary
 
-In this project you will build and explain a small music recommender system.
+This repository implements an agentic music recommendation system that converts conversational user requests into structured listening profiles, retrieves real music metadata from an external API, and refines recommendations through iterative evaluation. It is built as an extension of the original CodePath AI 110 “Applied AI Music Recommender System” from Modules 1-3.
 
-Your goal is to:
+The original project was a content-based recommendation simulator that represented songs and listener preferences as structured data, scored songs by genre, mood, energy, tempo, and other features, and ranked matching tracks for predefined user profiles. The current agentic version advances that foundation by introducing natural language understanding, API-driven retrieval, an evaluation loop, and self-correction to improve alignment with user intent.
 
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
+This system is relevant for employers because it demonstrates practical experience with modern AI architecture: clean separation of deterministic scoring logic, language-model-driven interpretation, external data retrieval, and transparent decision tracing. It is also relevant for users because it shows how AI can make recommendation systems more intuitive and trustworthy by accepting conversational requests, adapting to feedback, and surfacing results that are easier to understand and refine. The design highlights the broader impacts of agentic systems: improving human-machine collaboration, reducing the risk of opaque or misleading recommendations, and enabling more responsible, user-centered AI behavior.
 
 ---
 
 ## How The System Works
 
-Explain your design in plain language.
+This system is designed as an agentic music recommender rather than a static playlist generator. A user begins with a natural language request, and the system converts that request into structured preferences, retrieves relevant music metadata, scores candidates using a deterministic engine, and evaluates whether the results match the original intent.
 
-Some prompts to answer: In my system, a Song stores an ID, title, and three audio features: valence, danceability, and acousticness. The UserProfile stores a user's preferred genre, preferred mood, target energy level, and a liked_acousticness value that signals whether the user gravitates toward acoustic or electronic-sounding tracks. The Recommender works in two stages. First, it scores an individual song against a user's profile using the scoring logic defined in my algorithm. This keeps the scoring function focused and single-purpose — one song, one user, one score. That score is then consumed by a separate ranking function, which evaluates the full song catalog and surfaces the best matches for the user. This separation of scoring and ranking mirrors how real-world recommendation systems are architected — keeping each responsibility isolated and independently testable. At scale, real-world systems combine content-based filtering with collaborative filtering — learning from the behavior of millions of users to surface songs you haven't heard but listeners like you love. This simulation intentionally skips that layer and focuses only on audio feature similarity, which is a simpler but more transparent starting point.
+The workflow is:
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+- **Input:** a conversational query such as “I want something like Radiohead but more upbeat.”
+- **Profile extraction:** the agent translates language into a structured `UserProfile` containing fields like genre, mood, energy, tempo, acoustic preference, and explicit content preference.
+- **Retrieval:** the system uses the user profile to fetch and normalize music metadata from an external API, expanding the candidate pool beyond the local catalog.
+- **Recommendation:** the core engine scores each candidate by comparing song attributes to the profile and ranks the best matches.
+- **Evaluation:** the agent reviews the returned recommendations against the original query, assigns a quality score, and decides whether to refine the profile and retry.
+- **Output:** final ranked recommendations plus a reasoning chain that explains each decision and iteration.
 
-You can include a simple diagram or bullet list if helpful.
+The main components are:
+
+- **RecommenderAgent:** orchestrates the agentic loop, calls tools, and enforces guardrails.
+- **Profile extractor:** converts natural language into structured preference data.
+- **Retriever/API client:** fetches real music metadata and normalizes it for scoring.
+- **Recommender engine:** deterministic scoring logic that ranks songs by feature match.
+- **Evaluator:** assesses result quality and triggers self-correction when needed.
+
+This architecture preserves a deterministic core while adding AI-powered interpretation and evaluation. The system is designed so that the recommendation logic remains transparent and testable, while the agent adds the ability to accept user intent directly and recover from weak matches.
+
+---
+
+## Design Decisions
+
+This implementation was built to balance a clear recommendation model with an agentic workflow layer.
+
+- **Deterministic scoring core:** The existing `src/recommender.py` engine remains the authoritative ranking mechanism, so recommendations are explainable and easy to validate.
+- **Agent orchestration:** `src/agent.py` provides the control loop, profile extraction, candidate retrieval, evaluation, and refinement. This separates intent handling from scoring.
+- **External metadata retrieval:** `src/api_client.py` and `src/retriever.py` integrate Last.fm lookup and caching, enabling the system to expand beyond the local catalog without changing the core recommender.
+- **Safe fallback behavior:** If API retrieval fails, the system gracefully falls back to the local song catalog and still produces recommendations.
+- **Explicit guardrails:** The agent limits iterations, validates profile values, writes structured logs, and reports clear errors when the API key is missing.
+
+### Trade-offs
+
+- **Heuristic interpretation instead of an LLM backend:** Profile extraction and evaluation are currently implemented with deterministic rules to keep the system self-contained and reliable. This reduces flexibility compared to a full language model, but it minimizes external dependencies and complexity.
+- **Candidate selection over data enrichment:** The retrieval layer selects relevant songs based on Last.fm artist and tag lookups, but it does not fully enrich every song feature. This maintains compatibility with the existing scoring schema while still improving relevance.
+- **Quality evaluation is pragmatic:** The evaluator uses keyword-driven adjustments and average score thresholds. That makes the loop predictable, although it is less nuanced than a human or learned quality model.
+- **Preservation of original functionality:** The original static profile mode remains available, which ensures reproducibility and makes the system easier to demo and test.
 
 ---
 
@@ -37,65 +60,66 @@ You can include a simple diagram or bullet list if helpful.
 |---|---|
 | `song.genre == user.favorite_genre` | **+1.0** |
 | `song.mood == user.favorite_mood` | **+1.0** |
+| Valence proximity: `1.0 - abs(song.valence - user.target_valence)` | **0.0 – 1.0** |
 | Energy proximity: `2.0 × (1.0 - abs(song.energy - user.target_energy))` | **0.0 – 2.0** |
+| Danceability proximity: `1.0 - abs(song.danceability - user.target_danceability)` | **0.0 – 1.0** |
+| Tempo proximity: `max(0, 1.0 - abs(song.tempo_bpm - user.target_tempo) / 100)` | **0.0 – 1.0** |
+| Era match: `song.era == user.preferred_era` (only when era preference is set) | **+0.5** |
+| Explicit fit: `+0.5` unless user avoids explicit and song is explicit | **0.0 – 0.5** |
+| Loudness proximity: `max(0, 1.0 - abs(song.loudness - user.target_loudness) / 15)` | **0.0 – 1.0** |
 | Acoustic fit: matches `likes_acoustic` preference (threshold 0.6) | **+0.5** |
 | Instrumental fit: matches `prefers_instrumental` preference (threshold 0.6) | **+0.5** |
 | Speechiness proximity: `1.0 - abs(song.speechiness - user.target_speechiness)` | **0.0 – 1.0** |
 | Liveness proximity: `1.0 - abs(song.liveness - user.target_liveness)` | **0.0 – 1.0** |
-| **Maximum possible score** | **7.0** |
+| **Maximum possible score** | **12.0** |
 | Song below `min_popularity` | **filtered out** |
+| Artist diversity penalty (duplicate artist in top-K) | **×0.8** |
 
-The weights were chosen so that genre is the strongest signal (a 2× premium over mood), because listeners most reliably reject songs outside their preferred genre. Energy is a continuous bonus that breaks ties between genre/mood matches. Acoustic and instrumental fit are small tie-breakers since those preferences are binary and highly personal. Speechiness and liveness use the same proximity formula as energy — the closer the song's value to the user's target, the higher the bonus — rewarding songs that match how spoken-word-heavy or live-sounding the user prefers their music.
+**Two ranking modes:**
+- `relevance` (default) — sort purely by feature-match score.
+- `discovery` — applies a +15% score boost to songs with popularity below 65 before sorting, surfacing lesser-known tracks that score well but would otherwise be buried by popular ones.
+
+The weights were chosen so that genre is the strongest discrete signal and energy carries the most continuous weight (up to 2.0). Five additional attributes — danceability, tempo, era, explicit content, and loudness — were added as scored dimensions to give the system a richer picture of each song. An artist diversity penalty ensures no single artist dominates the top-K results.
 
 ---
 
 ### Data Flow Diagram
 
-```mermaid
-flowchart TD
-    A["User Profile\n(genre · mood · target_energy\nacoustic · instrumental · speechiness · liveness · min_popularity)"]
-    B["Load songs.csv\n(18 songs)"]
-    C{"For each Song\nin catalog"}
-    D{"Genre match?"}
-    E["+2.0 pts"]
-    F["+0.0 pts"]
-    G{"Mood match?"}
-    H["+1.0 pt"]
-    I["+0.0 pts"]
-    J["Energy proximity\n+0.0 to +1.0 pts"]
-    K["Acoustic fit\n+0.5 pts if match"]
-    L["Instrumental fit\n+0.5 pts if match"]
-    M["Speechiness proximity\n+0.0 to +1.0 pts"]
-    N["Liveness proximity\n+0.0 to +1.0 pts"]
-    O{"Above min\npopularity?"}
-    P["Discard"]
-    Q["Total score\n(0.0 – 7.0)"]
-    R["Collect all scored songs"]
-    S["Sort descending by score"]
-    T["Return Top-K songs"]
+graph TD
+    %% User Input
+    User((User Interface)) -->|Natural Language Query| Agent[Recommender Agent]
 
-    A --> C
-    B --> C
-    C --> D
-    D -- yes --> E
-    D -- no --> F
-    E --> G
-    F --> G
-    G -- yes --> H
-    G -- no --> I
-    H --> J
-    I --> J
-    J --> K
-    K --> L
-    L --> M
-    M --> N
-    N --> O
-    O -- no --> P
-    O -- yes --> Q
-    Q --> R
-    R --> S
-    S --> T
-```
+    %% Agentic Reasoning Loop
+    subgraph Agentic_Loop [Agentic Intelligence]
+        Agent --> Tool1[extract_profile]
+        Tool1 -->|Structured Profile| Profile{User Profile}
+        Profile --> Tool2[evaluate_results]
+        Tool2 -->|Feedback/Refine| Agent
+    end
+
+    %% Retrieval Layer
+    subgraph Data_Retrieval [Retrieval & Enrichment]
+        Agent -->|Request Metadata| Client[API Client: Last.fm]
+        Client -->|Fetch Similar Artists/Tags| Cache[(API Cache)]
+        Cache -->|Normalized Data| Joiner[Data Normalizer]
+    end
+
+    %% Scoring Logic
+    subgraph Scoring_Core [Recommender Engine]
+        CSV[(songs.csv)] --> Joiner
+        Joiner -->|Contextual Catalog| Engine[Scoring Function]
+        Profile -->|Target Vectors| Engine
+        Engine -->|Ranked Results| Results[Top Recommendations]
+    end
+
+    %% Output
+    Results --> Tool2
+    Results -->|Final Selection + Reasoning| Output[CLI Output / Logs]
+    
+    %% Styling
+    style Agentic_Loop fill:#f9f,stroke:#333,stroke-width:2px
+    style Scoring_Core fill:#bbf,stroke:#333,stroke-width:2px
+    style Data_Retrieval fill:#dfd,stroke:#333,stroke-width:2px
 
 ---
 
@@ -105,6 +129,78 @@ flowchart TD
 - **Exact-string genre/mood matching.** "indie pop" and "pop" are treated as completely different genres, so similar-sounding categories receive no partial credit. This could cause the system to miss relevant songs.
 - **Small catalog amplifies genre gaps.** With only 18 songs, some genres (e.g., blues, classical, country) have just one entry. A user who prefers those genres will receive genre-match points for at most one song, making energy/mood proximity the only differentiator for the rest of the list.
 - **Popularity filter skews toward mainstream.** Setting `min_popularity` too high could silently exclude niche but well-matched songs (e.g., the ambient and classical tracks with popularity 54–59).
+
+---
+
+## Terminal Output — Three User Profiles
+
+Run with `python -m src.main` from the project root.
+
+### Profile 1 — Happy Pop Listener (relevance mode)
+```
+Profile: Happy Pop Listener  |  Mode: relevance
+====================================================================================
+ #   Title                  Artist            Score  Top Reasons
+------------------------------------------------------------------------------------
+ 1   Sunrise City           Neon Echo        11.780  genre match (+1.0)  |  mood match (+1.0)  |  valence proximity (+0.96)
+ 2   Rooftop Lights         Indigo Parade    10.570  mood match (+1.0)  |  valence proximity (+0.99)  |  energy proximity (+1.92)
+ 3   Gym Hero               Max Pulse        10.370  genre match (+1.0)  |  valence proximity (+0.97)  |  energy proximity (+1.74)
+ 4   Neon Pulse             Circuit Drift     9.180  valence proximity (+0.92)  |  energy proximity (+1.76)  |  danceability proximity (+0.8)
+ 5   Gold Chain Anthem      Cipher Kings      9.040  valence proximity (+0.93)  |  energy proximity (+1.86)  |  danceability proximity (+0.84)
+====================================================================================
+```
+Sunrise City (#1) wins because it is the only song that matches both genre and mood exactly. Rooftop Lights (#2) beats Gym Hero (#3) despite sharing neither the genre label nor the energy, because its valence and overall vibe are closer to what a happy listener wants — the genre weight change (from +2.0 to +1.0) made this possible.
+
+---
+
+### Profile 2 — Hip-Hop Fan (relevance mode)
+```
+Profile: Hip-Hop Fan  |  Mode: relevance
+====================================================================================
+ #   Title                  Artist            Score  Top Reasons
+------------------------------------------------------------------------------------
+ 1   Gold Chain Anthem      Cipher Kings     11.890  genre match (+1.0)  |  mood match (+1.0)  |  valence proximity (+0.97)
+ 2   Gym Hero               Max Pulse         9.120  valence proximity (+0.93)  |  energy proximity (+1.84)  |  danceability proximity (+0.98)
+ 3   Sunrise City           Neon Echo         9.100  valence proximity (+0.86)  |  energy proximity (+1.94)  |  danceability proximity (+0.89)
+ 4   Rooftop Lights         Indigo Parade     8.900  valence proximity (+0.89)  |  energy proximity (+1.82)  |  danceability proximity (+0.92)
+ 5   Neon Pulse             Circuit Drift     8.800  valence proximity (+0.82)  |  energy proximity (+1.86)  |  danceability proximity (+0.95)
+====================================================================================
+```
+Gold Chain Anthem is the only song that matches both hip-hop and confident mood, giving it a decisive lead. Positions 2–5 are decided by energy, danceability, and valence — all of which favor high-energy dance tracks, which is consistent with a hip-hop fan's preferences.
+
+---
+
+### Profile 3 — Acoustic Chill Listener (relevance mode)
+```
+Profile: Acoustic Chill Listener  |  Mode: relevance
+====================================================================================
+ #   Title                  Artist            Score  Top Reasons
+------------------------------------------------------------------------------------
+ 1   Campfire Fable         The Hollow Oaks  11.720  genre match (+1.0)  |  mood match (+1.0)  |  valence proximity (+0.98)
+ 2   Wildflower Waltz       Creek & Stone     9.850  mood match (+1.0)  |  valence proximity (+0.92)  |  energy proximity (+1.8)
+ 3   Coffee Shop Stories    Slow Stereo       9.510  valence proximity (+0.89)  |  energy proximity (+1.94)  |  danceability proximity (+0.99)
+ 4   Rainy Porch Blues      Delta Hollow      9.030  valence proximity (+0.62)  |  energy proximity (+1.92)  |  danceability proximity (+0.9)
+ 5   Focus Flow             LoRoom            8.140  valence proximity (+0.99)  |  energy proximity (+2.0)  |  danceability proximity (+0.95)
+====================================================================================
+```
+Campfire Fable leads with both a genre match (folk) and mood match (nostalgic), plus a near-perfect valence. The rest of the list shifts toward acoustic-friendly, low-energy tracks — a clear contrast from the pop and hip-hop profiles, demonstrating that the system genuinely adapts to different listener types.
+
+---
+
+### Ranking Mode Comparison — Acoustic Chill Listener
+```
+Profile: Acoustic Chill Listener  |  Mode: discovery
+====================================================================================
+ #   Title                  Artist            Score  Top Reasons
+------------------------------------------------------------------------------------
+ 1   Campfire Fable         The Hollow Oaks  13.478  genre match (+1.0)  |  mood match (+1.0)  |  valence proximity (+0.98)
+ 2   Wildflower Waltz       Creek & Stone    11.327  mood match (+1.0)  |  valence proximity (+0.92)  |  energy proximity (+1.8)
+ 3   Coffee Shop Stories    Slow Stereo      10.936  valence proximity (+0.89)  |  energy proximity (+1.94)  |  danceability proximity (+0.99)
+ 4   Rainy Porch Blues      Delta Hollow     10.384  valence proximity (+0.62)  |  energy proximity (+1.92)  |  danceability proximity (+0.9)
+ 5   Focus Flow             LoRoom            9.361  valence proximity (+0.99)  |  energy proximity (+2.0)  |  danceability proximity (+0.95)
+====================================================================================
+```
+Discovery mode boosts every song in the catalog with popularity below 65. All five results here have popularity < 65, so they all receive the +15% boost. The ranking order stays the same because they all qualify, but a song like Campfire Fable (popularity 61) now surfaces above popular alternatives that would otherwise crowd it out.
 
 ---
 
@@ -122,19 +218,81 @@ flowchart TD
    ```bash
    python -m venv .venv
    source .venv/bin/activate      # Mac or Linux
-   .venv\Scripts\activate         # Windows
+   .venv\Scripts\activate       # Windows
+   ```
 
-2. Install dependencies
+2. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Create a local environment file:
+
+   ```bash
+   copy .env.example .env        # Windows
+   cp .env.example .env          # Mac or Linux
+   ```
+
+4. Add your Last.fm API key to `.env`:
+
+   ```text
+   LASTFM_API_KEY=your_lastfm_api_key_here
+   ```
+
+5. Run the default CLI mode (static profiles):
+
+   ```bash
+   python -m src.main
+   ```
+
+6. Run the agentic Last.fm mode:
+
+   ```bash
+   python -m src.main --agent "I want something like Radiohead but more upbeat"
+   ```
+
+7. Run a specific predefined profile:
+
+   ```bash
+   python -m src.main --profile "Happy Pop Listener" --mode discovery --k 5
+   ```
+
+### Sample Interactions
+
+#### Example 1 — Static profile recommendation
 
 ```bash
-pip install -r requirements.txt
+python -m src.main --profile "Happy Pop Listener" --mode relevance --k 5
 ```
 
-3. Run the app:
+Expected output:
+
+- A formatted recommendation table for the `Happy Pop Listener` profile
+- Top reasons like `genre match`, `mood match`, `valence proximity`, and `energy proximity`
+
+#### Example 2 — Agentic natural language query
 
 ```bash
-python -m src.main
+python -m src.main --agent "I want something like Radiohead but more upbeat"
 ```
+
+Expected output:
+
+- A recommendation table labeled `Agent Query`
+- A reasoning chain describing profile extraction, evaluation, and any refinements
+- A log entry appended to `logs/agent.log`
+
+#### Example 3 — Discovery mode for a fixed profile
+
+```bash
+python -m src.main --profile "Acoustic Chill Listener" --mode discovery --k 5
+```
+
+Expected output:
+
+- A ranked table with acoustic, nostalgic, low-energy songs
+- Discovery boost details in the recommendation reasoning
 
 ### Running Tests
 
@@ -145,6 +303,21 @@ pytest
 ```
 
 You can add more tests in `tests/test_recommender.py`.
+
+### Reliability and Evaluation
+
+- **Automated tests:** 14 tests pass, covering the recommender engine, agent profile extraction, fallback retrieval behavior, and edge-case scoring.
+- **Quality scoring:** The agent computes an internal `quality_score` on a 1–10 scale and uses it to decide whether to refine recommendations.
+- **Logging and error handling:** The agent writes structured logs to `logs/agent.log`, and the retrieval layer falls back to the local catalog when Last.fm calls fail.
+- **Human review:** The README includes example outputs and reasoning chains so a reviewer can compare model decisions to expected behavior.
+
+Summary: 14 out of 14 tests passed; the AI is reliable for the implemented recommendation and retrieval cases, with validation rules and log tracing supporting debugging when external context is missing.
+
+### Testing Summary
+
+- **What worked:** The deterministic recommendation engine and agent orchestration were both stable, and the current suite validates sorting, popularity filtering, discovery boosts, artist diversity penalties, candidate retrieval fallback behavior, and profile refinement.
+- **What didn’t:** The initial test setup had import-path issues and missing environment dependencies (`requests`), which were resolved by adding `src/__init__.py`, a `pytest.ini` config, and installing the required packages.
+- **What I learned:** Reliable testing for an AI-enhanced system requires both deterministic unit coverage and environment sanity checks. Making the package importable and covering API fallback behavior early prevents the agent logic from failing silently when external metadata is unavailable.
 
 ---
 
@@ -161,7 +334,7 @@ You can add more tests in `tests/test_recommender.py`.
 
 - **Tiny catalog:** 18 songs across 15 genres means most genres have exactly one representative. A user who prefers blues, classical, or metal will always receive that one song as their top result regardless of fit.
 - **Genre label brittleness:** Genre matching uses exact string equality. "Indie pop" and "pop" score as completely different, even though they describe nearly identical music. Users whose preferred genre is labeled slightly differently in the catalog receive systematically worse recommendations.
-- **Valence is unused:** The dataset includes a valence score (0–1 emotional brightness) for every song, but the scorer ignores it. This is the single most direct proxy for mood, and its absence means the mood tag alone carries the full emotional weight.
+- **Artist diversity is post-hoc:** The artist penalty is applied after scoring, not during. A catalog dominated by one artist would still surface that artist's top song at #1 before the penalty kicks in for later results.
 - **No listening history:** The system treats every session as a blank slate. It cannot learn that a user always skips high-liveness songs or always replays tracks with valence above 0.8.
 
 ---
@@ -172,9 +345,24 @@ Read and complete `model_card.md`:
 
 [**Model Card**](model_card.md)
 
-The most important thing this project taught me is that the weights in a scoring system are the real design decisions — not the code structure. The logic was correct from the start, but a single number (+2.0 on genre) was enough to make a gym pump-up track outrank a genuinely happy song for someone who asked for happy music. Changing that one value corrected the ranking immediately, which shows how much leverage individual weights have over the final output.
+This project reinforced that applied AI is about balancing technical design with practical problem-solving. Building a recommender system is only part of the work; the more important challenge is ensuring that the system’s behavior is understandable, testable, and aligned with the user’s intent.
 
-The Gym Hero situation also changed how I think about real recommendation apps. When a streaming service suggests something unexpected, I used to assume it had learned something subtle about my taste. Now I think it is more likely matching on acoustic features that accidentally align — low liveness, low speechiness, similar energy — without any understanding of whether the mood or genre actually fits. Transparency matters: when you can read an explanation for why a song was chosen, you can immediately tell whether the system understood you. When you cannot, you are just guessing.
+Key lessons learned:
+
+- **Feature weighting is the core decision.** The system structure can be simple, but the scoring weights determine whether recommendations feel correct. A small change in genre or energy weighting can significantly alter the output.
+- **Explainability improves trust.** Explicit explanation text for recommendations makes it much easier to see why a song was chosen and whether the result matches the request.
+- **Handling edge cases is critical.** Missing API responses, fallback candidate generation, and exact string matching showed how fragile a recommender can be without robust fallback logic.
+- **Iterative validation is necessary.** The project evolved through repeated testing and refinement rather than by assuming the first design was sufficient.
+- **Practical solutions are often the best choice.** For this project, a heuristic-driven agent with clear fail-safes was more dependable than an overly complex black-box approach.
+
+Overall, this work showed me that effective AI projects require engineering discipline, careful validation, and a strong focus on making system behavior visible and manageable. That combination is what makes a recommendation system useful, not just technically interesting.
+
+### Responsible AI Reflection
+
+- **Limitations and biases:** The system is limited by a small, hand-curated song catalog, exact-string genre and mood matching, and a popularity threshold that can favor mainstream tracks. It also lacks personalized listening history and relies on heuristic profile inference rather than learned taste models, so it can misinterpret nuanced user intent.
+- **Potential misuse:** This AI could be misused if users assume it represents a broad personal taste profile or if it is relied on to recommend content for sensitive contexts. To prevent that, the system includes explicit reasoning output, fallback behavior, and clear error handling, and it should be presented as a prototype with known constraints rather than a finished personalization engine.
+- **Testing surprises:** The reliability tests showed that environment and import setup were the first real failure mode, not the scoring logic. It was also surprising how much the system’s behavior depended on small weight changes and how exact genre labels could shift recommendations unexpectedly.
+- **AI collaboration:** I worked with an AI coding assistant to structure the README, define tests, and refine responsibilities. A helpful suggestion was adding a `pytest.ini` import fix; a flawed suggestion was an early test fixture that passed the wrong song object type into the recommender, which required correcting the test structure.
 
 
 
