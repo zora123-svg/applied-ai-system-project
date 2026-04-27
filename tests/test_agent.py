@@ -65,11 +65,20 @@ class DummyApiClient:
             return ["R. Kelly"]
         if normalized == "radiohead":
             return ["Radiohead"]
+        if normalized == "prince":
+            return ["Prince"]
         return []
 
     def get_artist_tags(self, artist_name: str, limit: int = 5):
         if artist_name.lower().strip() == "radiohead":
             return ["alternative rock", "art rock"]
+        if artist_name.lower().strip() == "prince":
+            return ["funk", "r&b", "soul"]
+        return []
+
+    def get_similar_artists(self, artist_name: str, limit: int = 10):
+        if artist_name.lower().strip() == "prince":
+            return ["The Time", "Morris Day"]
         return []
 
 
@@ -144,3 +153,25 @@ def test_evaluate_results_refines_even_when_quality_score_is_high():
     assert result["quality_score"] >= 7
     assert result["should_refine"] is True
     assert result["refined_profile"]["target_energy"] == 0.65
+
+
+def test_evaluate_results_forces_refinement_when_artist_style_is_missing():
+    agent = RecommenderAgent(api_client=DummyApiClient(), quality_threshold=7)
+    profile = {
+        "seed_artist": "Prince",
+        "favorite_genre": "rock",
+        "target_energy": 0.65,
+        "target_valence": 0.7,
+        "target_danceability": 0.65,
+    }
+    recommendations = [
+        ({"artist": "Neon Echo", "genre": "rock", "energy": 0.66, "valence": 0.71}, 9.2, "reason"),
+        ({"artist": "Indigo Parade", "genre": "rock", "energy": 0.64, "valence": 0.69}, 9.0, "reason"),
+    ]
+
+    result = agent.evaluate_results("I want something like Prince music", profile, recommendations)
+    assert result["quality_score"] >= 7
+    assert result["should_refine"] is True
+    assert result["refined_profile"]["favorite_genre"] == "pop"
+    assert result["refined_profile"]["target_danceability"] > 0.65
+    assert "not style-aligned with Prince" in result["feedback"]

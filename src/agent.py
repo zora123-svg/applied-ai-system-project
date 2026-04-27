@@ -207,6 +207,18 @@ class RecommenderAgent:
                 refined_profile["target_energy"] = new_energy
                 feedback.append("Refining energy target to improve recommendation quality.")
 
+        artist_reference = profile.get("seed_artist", "")
+        if self._is_artist_style_query(normalized, artist_reference):
+            style_targets = self._get_artist_style_targets(artist_reference)
+            if not self._has_artist_style_alignment(recommendations, artist_reference, style_targets):
+                artist_genre = style_targets.get("genre", "")
+                if artist_genre and artist_genre != profile.get("favorite_genre", ""):
+                    refined_profile["favorite_genre"] = artist_genre
+                refined_profile["target_danceability"] = min(1.0, profile.get("target_danceability", 0.65) + 0.08)
+                feedback.append(
+                    f"Top results are not style-aligned with {artist_reference}; refining genre and groove targets."
+                )
+
         reason = " | ".join(feedback) if feedback else "Results appear reasonable, no further refinement suggested."
         should_refine = bool(refined_profile)
         return {
@@ -276,23 +288,79 @@ class RecommenderAgent:
 
             normalized_tags = [tag.lower().strip() for tag in tags if tag]
             for tag in normalized_tags:
-                if tag in GENRE_KEYWORDS:
-                    return GENRE_KEYWORDS[tag]
-                if "rock" in tag:
-                    return "rock"
-                if "pop" in tag:
-                    return "pop"
-                if "electronic" in tag:
-                    return "electronic"
-                if "hip hop" in tag or "hip-hop" in tag:
-                    return "hip-hop"
-                if "folk" in tag:
-                    return "folk"
+                mapped = self._map_tag_to_genre(tag)
+                if mapped:
+                    return mapped
 
         for keyword, genre in GENRE_KEYWORDS.items():
             if keyword in query:
                 return genre
         return ""
+
+    def _map_tag_to_genre(self, tag: str) -> str:
+        normalized_tag = tag.lower().strip()
+        if normalized_tag in GENRE_KEYWORDS:
+            return GENRE_KEYWORDS[normalized_tag]
+        if "rock" in normalized_tag:
+            return "rock"
+        if "pop" in normalized_tag:
+            return "pop"
+        if "electronic" in normalized_tag:
+            return "electronic"
+        if "hip hop" in normalized_tag or "hip-hop" in normalized_tag:
+            return "hip-hop"
+        if "folk" in normalized_tag:
+            return "folk"
+        if "r&b" in normalized_tag or "rnb" in normalized_tag or "soul" in normalized_tag:
+            return "pop"
+        if "funk" in normalized_tag:
+            return "pop"
+        return ""
+
+    def _is_artist_style_query(self, normalized_query: str, seed_artist: str) -> bool:
+        if not seed_artist:
+            return False
+        intent_keywords = ["like", "similar to", "in the style of", "sounds like", "sound like"]
+        return self._contains_any(normalized_query, intent_keywords)
+
+    def _get_artist_style_targets(self, seed_artist: str) -> Dict:
+        targets = {"genre": "", "similar_artists": []}
+        if not self.api_client or not seed_artist:
+            return targets
+
+        try:
+            tags = self.api_client.get_artist_tags(seed_artist, limit=5)
+            for tag in tags:
+                mapped = self._map_tag_to_genre(tag)
+                if mapped:
+                    targets["genre"] = mapped
+                    break
+        except LastFmAPIError as exc:
+            self.append_log(f"API ERROR: {exc}")
+
+        try:
+            similar_artists = self.api_client.get_similar_artists(seed_artist, limit=10)
+            targets["similar_artists"] = [artist.lower().strip() for artist in similar_artists]
+        except LastFmAPIError as exc:
+            self.append_log(f"API ERROR: {exc}")
+
+        return targets
+
+    def _has_artist_style_alignment(self, recommendations: List[Tuple[Dict, float, str]], seed_artist: str, style_targets: Dict) -> bool:
+        normalized_seed = seed_artist.lower().strip()
+        similar_artists = set(style_targets.get("similar_artists", []))
+        target_genre = style_targets.get("genre", "")
+
+        for song, _, _ in recommendations:
+            song_artist = song.get("artist", "").lower().strip()
+            song_genre = song.get("genre", "").lower().strip()
+            if normalized_seed and (song_artist == normalized_seed or normalized_seed in song_artist):
+                return True
+            if song_artist in similar_artists:
+                return True
+            if target_genre and song_genre == target_genre:
+                return True
+        return False
 
     def _infer_mood(self, query: str) -> str:
         for keyword, mood in MOOD_KEYWORDS.items():
