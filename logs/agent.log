@@ -160,3 +160,28 @@
 [2026-04-27 07:35:15] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=11.03
 [2026-04-27 07:35:15] ITERATION 1 | quality: 8/10 | feedback: Results appear reasonable, no further refinement suggested.
 [2026-04-27 07:35:15] FINAL: 5 candidate(s) returned
+[2026-04-27 07:39:18] QUERY: "I want kpop  music  music"
+[2026-04-27 07:39:18] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 07:39:18] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-27 07:39:18] ITERATION 1 | quality: 9/10 | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-27 07:39:18] FINAL: 5 candidate(s) returned
+[2026-04-27 08:14:45] QUERY: "I want kpop  music"
+[2026-04-27 08:14:45] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 08:14:45] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-27 08:14:45] ITERATION 1 | quality: 9/10 | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-27 08:14:45] FINAL: 5 candidate(s) returned
+[2026-04-27 08:15:19] QUERY: "I want soul music"
+[2026-04-27 08:15:19] ITERATION 1 | profile: {'favorite_genre': 'soul', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 08:15:19] ITERATION 1 | top_result: Vinyl Heartbeat (Juniper Miles) score=11.03
+[2026-04-27 08:15:19] ITERATION 1 | quality: 9/10 | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-27 08:15:19] FINAL: 5 candidate(s) returned
+[2026-04-27 08:16:27] QUERY: "I am hungry"
+[2026-04-27 08:16:27] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 08:16:27] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-27 08:16:27] ITERATION 1 | quality: 9/10 | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-27 08:16:27] FINAL: 5 candidate(s) returned
+[2026-04-27 08:19:24] QUERY: "Give me something simmilar to tupac"
+[2026-04-27 08:19:24] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 08:19:24] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-27 08:19:24] ITERATION 1 | quality: 9/10 | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-27 08:19:24] FINAL: 5 candidate(s) returned
