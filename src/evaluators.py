@@ -24,6 +24,10 @@ class HeuristicEvaluator:
                 "feedback": "No recommendations were returned.",
                 "should_refine": False,
                 "refined_profile": {},
+                "confidence_score": 0.0,
+                "evidence_count": 0,
+                "coverage_gap": True,
+                "safe_response": "I don't have enough evidence to recommend songs for that request yet.",
             }
 
         scores = [score for _, score, _ in recommendations]
@@ -72,12 +76,39 @@ class HeuristicEvaluator:
                     f"Top results are not style-aligned with {artist_reference}; refining genre and groove targets."
                 )
 
+        requested_genres = self._extract_requested_genres(normalized)
+        recommended_genres = {song.get("genre", "").lower().strip() for song, _, _ in recommendations}
+        missing_requested_genres = [genre for genre in requested_genres if genre not in recommended_genres]
+        coverage_gap = bool(missing_requested_genres)
+        if coverage_gap:
+            feedback.append(
+                f"Dataset coverage gap: requested genre(s) not found in top candidates ({', '.join(missing_requested_genres)})."
+            )
+
+        evidence_count = self._count_supported_signals(profile, recommendations, requested_genres)
+        confidence_score = self._compute_confidence_score(
+            quality_score=quality_score,
+            evidence_count=evidence_count,
+            has_coverage_gap=coverage_gap,
+            needs_refinement=bool(refined_profile),
+        )
+        safe_response = ""
+        if coverage_gap or confidence_score < 0.65:
+            safe_response = (
+                "Low confidence result: I may not have enough matching songs for this request. "
+                "Try broadening the genre or add more songs in the requested style."
+            )
+
         reason = " | ".join(feedback) if feedback else "Results appear reasonable, no further refinement suggested."
         return {
             "quality_score": quality_score,
             "feedback": reason,
             "should_refine": bool(refined_profile),
             "refined_profile": refined_profile,
+            "confidence_score": confidence_score,
+            "evidence_count": evidence_count,
+            "coverage_gap": coverage_gap,
+            "safe_response": safe_response,
         }
 
     def _map_tag_to_genre(self, tag: str) -> str:
@@ -146,6 +177,80 @@ class HeuristicEvaluator:
 
     def _contains_any(self, query: str, keywords: List[str]) -> bool:
         return any(keyword in query for keyword in keywords)
+
+    def _extract_requested_genres(self, query: str) -> List[str]:
+        genre_aliases = {
+            "kpop": "k-pop",
+            "k-pop": "k-pop",
+            "korean pop": "k-pop",
+            "hip hop": "hip-hop",
+            "hip-hop": "hip-hop",
+            "rnb": "r&b",
+            "r&b": "r&b",
+        }
+        known_genres = [
+            "pop",
+            "rock",
+            "hip-hop",
+            "electronic",
+            "lofi",
+            "jazz",
+            "folk",
+            "classical",
+            "blues",
+            "metal",
+            "country",
+            "synthwave",
+            "indie pop",
+            "k-pop",
+            "afrobeats",
+            "reggaeton",
+            "latin pop",
+            "house",
+            "techno",
+            "drill",
+            "funk",
+            "soul",
+            "r&b",
+            "punk",
+            "ambient",
+        ]
+        normalized_query = query.lower()
+        extracted = []
+        for alias, canonical in genre_aliases.items():
+            if alias in normalized_query and canonical not in extracted:
+                extracted.append(canonical)
+        for genre in known_genres:
+            if genre in normalized_query and genre not in extracted:
+                extracted.append(genre)
+        return extracted
+
+    def _count_supported_signals(self, profile: Dict, recommendations: List[Tuple[Dict, float, str]], requested_genres: List[str]) -> int:
+        evidence = 0
+        target_genre = profile.get("favorite_genre", "").lower().strip()
+        top_genres = [song.get("genre", "").lower().strip() for song, _, _ in recommendations[:3]]
+        if target_genre and any(genre == target_genre for genre in top_genres):
+            evidence += 1
+        if requested_genres and any(req in top_genres for req in requested_genres):
+            evidence += 1
+        if profile.get("seed_artist"):
+            seed = profile["seed_artist"].lower().strip()
+            top_artists = [song.get("artist", "").lower().strip() for song, _, _ in recommendations[:3]]
+            if any(seed in artist for artist in top_artists):
+                evidence += 1
+        return evidence
+
+    def _compute_confidence_score(
+        self, quality_score: int, evidence_count: int, has_coverage_gap: bool, needs_refinement: bool
+    ) -> float:
+        quality_component = quality_score / 10.0
+        evidence_component = min(1.0, evidence_count / 2.0)
+        confidence = round(0.6 * quality_component + 0.4 * evidence_component, 2)
+        if has_coverage_gap:
+            confidence = max(0.0, round(confidence - 0.35, 2))
+        if needs_refinement:
+            confidence = max(0.0, round(confidence - 0.15, 2))
+        return confidence
 
     def _log(self, message: str) -> None:
         if self.logger:

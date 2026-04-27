@@ -114,6 +114,8 @@ def test_evaluate_results_returns_low_quality_for_empty_recommendations():
 
     assert result["quality_score"] == 1
     assert result["should_refine"] is False
+    assert result["coverage_gap"] is True
+    assert result["confidence_score"] == 0.0
     assert "No recommendations" in result["feedback"]
 
 
@@ -138,6 +140,7 @@ def test_run_stops_when_quality_threshold_is_met():
     assert len(recommendations) == 1
     assert "ITERATION 2" in reasoning
     assert "SATISFIED" not in reasoning
+    assert agent.last_evaluation["confidence_score"] >= 0.0
     assert Path("logs") .exists()
 
 
@@ -175,3 +178,23 @@ def test_evaluate_results_forces_refinement_when_artist_style_is_missing():
     assert result["refined_profile"]["favorite_genre"] == "pop"
     assert result["refined_profile"]["target_danceability"] > 0.65
     assert "not style-aligned with Prince" in result["feedback"]
+
+
+def test_evaluate_results_flags_coverage_gap_for_kpop_request():
+    agent = RecommenderAgent(api_client=None, quality_threshold=7)
+    profile = {
+        "favorite_genre": "k-pop",
+        "target_energy": 0.8,
+        "target_valence": 0.75,
+        "target_danceability": 0.85,
+    }
+    recommendations = [
+        ({"artist": "Neon Echo", "genre": "pop", "energy": 0.82, "valence": 0.8}, 9.0, "reason"),
+        ({"artist": "Indigo Parade", "genre": "indie pop", "energy": 0.78, "valence": 0.77}, 8.7, "reason"),
+    ]
+
+    result = agent.evaluate_results("I want kpop music", profile, recommendations)
+    assert result["coverage_gap"] is True
+    assert result["confidence_score"] < 0.65
+    assert "Dataset coverage gap" in result["feedback"]
+    assert "Low confidence result" in result["safe_response"]

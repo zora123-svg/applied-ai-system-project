@@ -148,14 +148,17 @@ class RecommenderAgent:
         api_client: LastFmClient = None,
         max_iterations: int = 3,
         quality_threshold: int = 7,
+        min_confidence: float = 0.65,
         evaluator: Optional[EvaluationProvider] = None,
     ):
         self.api_client = api_client
         self.max_iterations = max_iterations
         self.quality_threshold = quality_threshold
+        self.min_confidence = min_confidence
         self.log_path = Path("logs") / "agent.log"
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
         self.evaluator = evaluator or HeuristicEvaluator(api_client=self.api_client, logger=self.append_log)
+        self.last_evaluation: Dict = {}
 
     def extract_profile(self, query: str, songs: List[Dict]) -> Dict:
         normalized = query.lower()
@@ -216,15 +219,22 @@ class RecommenderAgent:
                 f"ITERATION {iteration} | top_result: {recommendations[0][0]['title']} ({recommendations[0][0]['artist']}) score={recommendations[0][1]:.2f}"
             )
             self.append_log(
-                f"ITERATION {iteration} | quality: {evaluation['quality_score']}/10 | feedback: {evaluation['feedback']}"
+                "ITERATION "
+                f"{iteration} | quality: {evaluation['quality_score']}/10 | confidence: {evaluation.get('confidence_score', 0.0):.2f} "
+                f"| coverage_gap: {evaluation.get('coverage_gap', False)} | feedback: {evaluation['feedback']}"
             )
 
             trace_lines.append(f"ITERATION {iteration} | profile: {profile_snapshot}")
             trace_lines.append(
-                f"ITERATION {iteration} | quality: {evaluation['quality_score']}/10 | feedback: {evaluation['feedback']}"
+                "ITERATION "
+                f"{iteration} | quality: {evaluation['quality_score']}/10 | confidence: {evaluation.get('confidence_score', 0.0):.2f} "
+                f"| coverage_gap: {evaluation.get('coverage_gap', False)} | feedback: {evaluation['feedback']}"
             )
 
-            if not evaluation["should_refine"]:
+            self.last_evaluation = evaluation
+            is_confident = evaluation.get("confidence_score", 0.0) >= self.min_confidence
+            has_gap = evaluation.get("coverage_gap", False)
+            if not evaluation["should_refine"] and is_confident and not has_gap:
                 trace_lines.append(f"SATISFIED — stopping after {iteration} iteration(s)")
                 break
 

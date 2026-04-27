@@ -136,6 +136,14 @@ def main() -> None:
         agent = RecommenderAgent(api_client=api_client)
         recommendations, reasoning = agent.run(args.agent, songs, k=args.k, mode=args.mode)
         print_table("Agent Query", recommendations, args.mode)
+        if agent.last_evaluation.get("safe_response"):
+            print("\nReliability note:")
+            print(agent.last_evaluation["safe_response"])
+            print(
+                "confidence="
+                f"{agent.last_evaluation.get('confidence_score', 0.0):.2f}, "
+                f"coverage_gap={agent.last_evaluation.get('coverage_gap', False)}"
+            )
         print("\nReasoning chain:\n")
         print(reasoning)
         return
