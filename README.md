@@ -10,6 +10,21 @@ This system is relevant because it demonstrates practical experience with modern
 
 ---
 
+## Documentation Coverage (Rubric Section 3)
+
+This README is organized to satisfy the required project documentation items:
+
+- **Original project and extension summary:** Covered in `## Project Summary`, including a 2-3 sentence description of the Modules 1-3 baseline and how this final system extends it.
+- **Title and summary:** Provided at the top of this document with project purpose and impact.
+- **Architecture overview:** Covered in `## How The System Works` and the diagram sections. The latest full system diagram source is stored at `assets/system_diagram.mmd`.
+- **Setup instructions:** Covered in `## Getting Started` with environment, dependency installation, and run commands.
+- **Sample interactions:** Included in `## Terminal Output — Three User Profiles` and `### Sample Interactions` with concrete commands and expected outputs.
+- **Design decisions and trade-offs:** Covered in `## Design Decisions`.
+- **Testing summary:** Covered in `### Running Tests`, `### Reliability and Evaluation`, and `### Testing Summary` with current test command and results.
+- **Reflection:** Covered in `## Reflection` and `### Responsible AI Reflection`.
+
+---
+
 ## How The System Works
 
 This system is designed as an agentic music recommender rather than a static playlist generator. A user begins with a natural language request, and the system converts that request into structured preferences, retrieves relevant music metadata, scores candidates using a deterministic engine, and evaluates whether the results match the original intent.
