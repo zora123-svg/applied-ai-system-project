@@ -9,6 +9,7 @@ uses an iterative evaluation loop to refine recommendations.
 import argparse
 from src.api_client import LastFmClient
 from src.agent import RecommenderAgent
+from src.ai_inference import AIInferenceError, LLMEvaluationProvider, LLMProfileExtractor, create_inference_client_from_env
 from src.recommender import load_songs, recommend_songs
 
 # ---------------------------------------------------------------------------
@@ -120,6 +121,11 @@ def main() -> None:
         help="Ranking mode for recommendations.",
     )
     parser.add_argument("--k", type=int, default=5, help="Number of recommendations to return.")
+    parser.add_argument(
+        "--use-external-ai",
+        action="store_true",
+        help="Use external AI inference for profile extraction and evaluation.",
+    )
     args = parser.parse_args()
 
     songs = load_songs("data/songs.csv")
@@ -133,7 +139,18 @@ def main() -> None:
             print("Set LASTFM_API_KEY in .env or your environment to use --agent mode.")
             return
 
-        agent = RecommenderAgent(api_client=api_client)
+        evaluator = None
+        profile_extractor = None
+        if args.use_external_ai:
+            try:
+                inference_client = create_inference_client_from_env()
+                evaluator = LLMEvaluationProvider(inference_client)
+                profile_extractor = LLMProfileExtractor(inference_client)
+            except AIInferenceError as exc:
+                print(f"AI inference disabled: {exc}")
+                print("Falling back to built-in heuristic inference.")
+
+        agent = RecommenderAgent(api_client=api_client, evaluator=evaluator, profile_extractor=profile_extractor)
         recommendations, reasoning = agent.run(args.agent, songs, k=args.k, mode=args.mode)
         print_table("Agent Query", recommendations, args.mode)
         if agent.last_evaluation.get("safe_response"):

@@ -54,7 +54,7 @@ def test_extract_profile_infers_keywords_and_seed_artist():
     assert profile["seed_artist"] == "Neon Echo"
     assert profile["favorite_genre"] == "pop"
     assert profile["likes_acoustic"] is True
-    assert profile["target_energy"] == 0.85
+    assert profile["target_energy"] == 0.83
     assert profile["preferred_era"] == "2020s"
 
 
@@ -106,6 +106,16 @@ def test_merge_profile_clamps_target_values():
     merged = agent.merge_profile(profile, refined)
     assert merged["target_energy"] == 1.0
     assert merged["target_valence"] == 0.0
+
+
+def test_merge_profile_clamps_tempo_and_loudness_with_field_specific_ranges():
+    agent = RecommenderAgent(api_client=None)
+    profile = {"target_tempo": 110.0, "target_loudness": -8.0}
+    refined = {"target_tempo": 300.0, "target_loudness": -90.0}
+
+    merged = agent.merge_profile(profile, refined)
+    assert merged["target_tempo"] == 220.0
+    assert merged["target_loudness"] == -60.0
 
 
 def test_evaluate_results_returns_low_quality_for_empty_recommendations():
@@ -196,5 +206,93 @@ def test_evaluate_results_flags_coverage_gap_for_kpop_request():
     result = agent.evaluate_results("I want kpop music", profile, recommendations)
     assert result["coverage_gap"] is True
     assert result["confidence_score"] < 0.65
+    assert result["feedback"].startswith("Not reasonable:")
     assert "Dataset coverage gap" in result["feedback"]
     assert "Low confidence result" in result["safe_response"]
+
+
+def test_evaluate_results_does_not_infer_pop_from_kpop_token():
+    agent = RecommenderAgent(api_client=None, quality_threshold=7)
+    profile = {
+        "favorite_genre": "k-pop",
+        "target_energy": 0.8,
+        "target_valence": 0.75,
+        "target_danceability": 0.85,
+    }
+    recommendations = [
+        ({"artist": "Nova Nine", "genre": "k-pop", "energy": 0.83, "valence": 0.79}, 9.1, "reason"),
+        ({"artist": "Luna Byte", "genre": "k-pop", "energy": 0.76, "valence": 0.7}, 8.7, "reason"),
+    ]
+
+    result = agent.evaluate_results("I want kpop music", profile, recommendations)
+    assert result["coverage_gap"] is False
+
+
+def test_run_stops_unsatisfied_when_not_refining_and_low_confidence():
+    class LowConfidenceNoRefineEvaluator:
+        def evaluate(self, query, profile, recommendations, quality_threshold):
+            return {
+                "quality_score": 7,
+                "feedback": "insufficient coverage",
+                "should_refine": False,
+                "refined_profile": {},
+                "confidence_score": 0.4,
+                "coverage_gap": True,
+                "safe_response": "Low confidence",
+            }
+
+    agent = RecommenderAgent(api_client=None, max_iterations=3, evaluator=LowConfidenceNoRefineEvaluator())
+    _, reasoning = agent.run("I want kpop music", make_songs(), k=1, mode="relevance")
+    assert "UNSATISFIED" in reasoning
+
+
+def test_run_outputs_profile_delta_and_inference_diagnostics():
+    agent = RecommenderAgent(api_client=None, max_iterations=1)
+    _, reasoning = agent.run("I want upbeat acoustic pop like Neon Echo", make_songs(), k=1, mode="relevance")
+    assert "profile_delta" in reasoning
+    assert "inference" in reasoning
+    assert "seed_artist" in reasoning
+
+
+def test_relational_heuristic_adjusts_upbeat_jazz_profile():
+    agent = RecommenderAgent(api_client=None)
+    profile = agent.extract_profile("I want upbeat jazz", make_songs())
+    assert profile["favorite_genre"] == "jazz"
+    assert profile["target_energy"] < 0.84
+    assert profile["target_tempo"] < 120.0
+
+
+def test_reflection_heuristic_refines_tempo_for_upbeat_when_tempo_is_slow():
+    agent = RecommenderAgent(api_client=None, quality_threshold=7)
+    profile = {"target_energy": 0.85, "target_valence": 0.7, "target_tempo": 110.0}
+    recommendations = [
+        ({"energy": 0.84, "valence": 0.7, "tempo_bpm": 92, "genre": "pop", "artist": "A"}, 9.0, "reason"),
+        ({"energy": 0.81, "valence": 0.72, "tempo_bpm": 95, "genre": "pop", "artist": "B"}, 8.8, "reason"),
+    ]
+
+    result = agent.evaluate_results("I want upbeat music", profile, recommendations)
+    assert result["should_refine"] is True
+    assert result["refined_profile"]["target_tempo"] > 110.0
+    assert "faster tempo" in result["feedback"]
+
+
+def test_feedback_is_brutally_honest_for_unresolved_artist_and_era_intent():
+    agent = RecommenderAgent(api_client=None, quality_threshold=7)
+    profile = {
+        "favorite_genre": "pop",
+        "target_energy": 0.65,
+        "target_valence": 0.7,
+        "target_danceability": 0.65,
+        "target_tempo": 110.0,
+        "seed_artist": "",
+    }
+    recommendations = [
+        ({"artist": "Neon Echo", "genre": "pop", "era": "2020s", "energy": 0.8, "valence": 0.82, "tempo_bpm": 120}, 9.0, "reason"),
+        ({"artist": "Indigo Parade", "genre": "indie pop", "era": "2020s", "energy": 0.78, "valence": 0.8, "tempo_bpm": 118}, 8.8, "reason"),
+    ]
+
+    result = agent.evaluate_results("I want tupac music in 1950's", profile, recommendations)
+    assert result["coverage_gap"] is True
+    assert result["feedback"].startswith("Not reasonable:")
+    assert "Artist intent unresolved" in result["feedback"]
+    assert "Era intent unresolved" in result["feedback"]

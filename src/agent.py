@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from src.api_client import LastFmAPIError, LastFmClient
+from src.ai_inference import LLMProfileExtractor
 from src.evaluators import EvaluationProvider, HeuristicEvaluator
 from src.recommender import recommend_songs
 from src.retriever import build_candidate_songs
@@ -141,6 +142,23 @@ ERA_KEYWORDS = {
     "classic": "classic",
 }
 
+FUZZY_ENERGY_RANGES = {
+    "upbeat": (0.75, 0.92),
+    "energetic": (0.82, 0.95),
+    "high energy": (0.85, 0.97),
+    "chill": (0.25, 0.45),
+    "relaxed": (0.25, 0.42),
+    "mellow": (0.30, 0.48),
+}
+
+GENRE_RELATIONAL_RULES = {
+    "jazz": {"energy_multiplier": 0.8, "tempo_offset": -8.0, "danceability_offset": -0.05},
+    "metal": {"energy_multiplier": 1.08, "tempo_offset": 10.0, "danceability_offset": -0.06},
+    "folk": {"energy_multiplier": 0.82, "tempo_offset": -12.0, "danceability_offset": -0.08},
+    "hip-hop": {"energy_multiplier": 0.95, "tempo_offset": -6.0, "danceability_offset": 0.08},
+    "r&b": {"energy_multiplier": 0.86, "tempo_offset": -10.0, "danceability_offset": 0.04},
+}
+
 
 class RecommenderAgent:
     def __init__(
@@ -150,6 +168,7 @@ class RecommenderAgent:
         quality_threshold: int = 7,
         min_confidence: float = 0.65,
         evaluator: Optional[EvaluationProvider] = None,
+        profile_extractor: Optional[LLMProfileExtractor] = None,
     ):
         self.api_client = api_client
         self.max_iterations = max_iterations
@@ -158,6 +177,7 @@ class RecommenderAgent:
         self.log_path = Path("logs") / "agent.log"
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
         self.evaluator = evaluator or HeuristicEvaluator(api_client=self.api_client, logger=self.append_log)
+        self.profile_extractor = profile_extractor
         self.last_evaluation: Dict = {}
 
     def extract_profile(self, query: str, songs: List[Dict]) -> Dict:
@@ -173,6 +193,12 @@ class RecommenderAgent:
         profile["avoid_explicit"] = self._infer_avoid_explicit(normalized)
         profile["preferred_era"] = self._infer_era(normalized) or profile["preferred_era"]
         profile["target_danceability"] = self._infer_danceability(normalized, profile["target_danceability"])
+        profile = self._apply_relational_heuristics(normalized, profile)
+        if self.profile_extractor:
+            try:
+                profile = self.profile_extractor.infer_profile(query, profile, songs)
+            except Exception as exc:
+                self.append_log(f"AI PROFILE ERROR: {exc}")
         return profile
 
     def search_songs(self, profile: Dict, songs: List[Dict], k: int, mode: str = "relevance") -> List[Tuple[Dict, float, str]]:
@@ -190,10 +216,20 @@ class RecommenderAgent:
 
     def merge_profile(self, profile: Dict, refined: Dict) -> Dict:
         merged = profile.copy()
+        bounded_fields = {
+            "target_energy": (0.0, 1.0),
+            "target_valence": (0.0, 1.0),
+            "target_danceability": (0.0, 1.0),
+            "target_speechiness": (0.0, 1.0),
+            "target_liveness": (0.0, 1.0),
+            "target_tempo": (40.0, 220.0),
+            "target_loudness": (-60.0, 0.0),
+        }
         for key, value in refined.items():
             if isinstance(value, float):
-                if key.startswith("target_"):
-                    value = max(0.0, min(1.0, value))
+                bounds = bounded_fields.get(key)
+                if bounds:
+                    value = max(bounds[0], min(bounds[1], value))
             merged[key] = value
         return merged
 
@@ -213,18 +249,24 @@ class RecommenderAgent:
             recommendations = self.search_songs(profile, songs, k=k, mode=mode)
             evaluation = self.evaluate_results(query, profile, recommendations)
 
-            profile_snapshot = {k: v for k, v in profile.items() if k != "seed_artist"}
-            self.append_log(f"ITERATION {iteration} | profile: {profile_snapshot}")
-            self.append_log(
-                f"ITERATION {iteration} | top_result: {recommendations[0][0]['title']} ({recommendations[0][0]['artist']}) score={recommendations[0][1]:.2f}"
-            )
+            profile_delta = self._profile_delta_from_default(profile)
+            inference_diagnostics = self._build_inference_diagnostics(profile, profile_delta)
+            self.append_log(f"ITERATION {iteration} | profile_delta: {profile_delta}")
+            self.append_log(f"ITERATION {iteration} | inference: {inference_diagnostics}")
+            if recommendations:
+                self.append_log(
+                    f"ITERATION {iteration} | top_result: {recommendations[0][0]['title']} ({recommendations[0][0]['artist']}) score={recommendations[0][1]:.2f}"
+                )
+            else:
+                self.append_log(f"ITERATION {iteration} | top_result: none")
             self.append_log(
                 "ITERATION "
                 f"{iteration} | quality: {evaluation['quality_score']}/10 | confidence: {evaluation.get('confidence_score', 0.0):.2f} "
                 f"| coverage_gap: {evaluation.get('coverage_gap', False)} | feedback: {evaluation['feedback']}"
             )
 
-            trace_lines.append(f"ITERATION {iteration} | profile: {profile_snapshot}")
+            trace_lines.append(f"ITERATION {iteration} | profile_delta: {profile_delta}")
+            trace_lines.append(f"ITERATION {iteration} | inference: {inference_diagnostics}")
             trace_lines.append(
                 "ITERATION "
                 f"{iteration} | quality: {evaluation['quality_score']}/10 | confidence: {evaluation.get('confidence_score', 0.0):.2f} "
@@ -236,6 +278,11 @@ class RecommenderAgent:
             has_gap = evaluation.get("coverage_gap", False)
             if not evaluation["should_refine"] and is_confident and not has_gap:
                 trace_lines.append(f"SATISFIED — stopping after {iteration} iteration(s)")
+                break
+            if not evaluation["should_refine"] and (not is_confident or has_gap):
+                trace_lines.append(
+                    f"UNSATISFIED — stopping after {iteration} iteration(s); insufficient evidence for a reliable answer."
+                )
                 break
 
             profile = self.merge_profile(profile, evaluation["refined_profile"])
@@ -293,6 +340,10 @@ class RecommenderAgent:
         return ""
 
     def _infer_energy(self, query: str, default: float) -> float:
+        for keyword, (lower, upper) in FUZZY_ENERGY_RANGES.items():
+            if keyword in query:
+                # Fuzzy midpoint keeps deterministic behavior while avoiding rigid single-value mapping.
+                return round((lower + upper) / 2.0, 2)
         for keyword, energy in ENERGY_KEYWORDS.items():
             if keyword in query:
                 return energy
@@ -362,3 +413,38 @@ class RecommenderAgent:
 
     def _contains_any(self, query: str, keywords: List[str]) -> bool:
         return any(keyword in query for keyword in keywords)
+
+    def _profile_delta_from_default(self, profile: Dict) -> Dict:
+        delta = {}
+        for key, default_value in DEFAULT_PROFILE.items():
+            if profile.get(key) != default_value and key != "seed_artist":
+                delta[key] = profile.get(key)
+        if profile.get("seed_artist"):
+            delta["seed_artist"] = profile.get("seed_artist")
+        return delta
+
+    def _build_inference_diagnostics(self, profile: Dict, profile_delta: Dict) -> Dict:
+        diagnostics = {
+            "used_default_baseline": len(profile_delta) == 0,
+            "has_seed_artist": bool(profile.get("seed_artist")),
+            "changed_fields_count": len(profile_delta),
+        }
+        if not profile_delta:
+            diagnostics["reason"] = "No strong intent signals detected; profile remains at default baseline."
+        return diagnostics
+
+    def _apply_relational_heuristics(self, query: str, profile: Dict) -> Dict:
+        updated = profile.copy()
+        genre = updated.get("favorite_genre", "").lower().strip()
+        rules = GENRE_RELATIONAL_RULES.get(genre)
+        if not rules:
+            return updated
+
+        if self._contains_any(query, ["upbeat", "energetic", "high energy", "lively", "chill", "relaxed", "mellow"]):
+            base_energy = float(updated.get("target_energy", 0.65))
+            updated["target_energy"] = max(0.0, min(1.0, round(base_energy * rules["energy_multiplier"], 2)))
+        updated["target_tempo"] = max(40.0, min(220.0, round(float(updated.get("target_tempo", 110.0)) + rules["tempo_offset"], 1)))
+        updated["target_danceability"] = max(
+            0.0, min(1.0, round(float(updated.get("target_danceability", 0.65)) + rules["danceability_offset"], 2))
+        )
+        return updated

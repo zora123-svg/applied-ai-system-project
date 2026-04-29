@@ -1,3 +1,4 @@
+import re
 from typing import Callable, Dict, List, Optional, Protocol, Tuple
 
 from src.api_client import LastFmAPIError, LastFmClient
@@ -36,8 +37,10 @@ class HeuristicEvaluator:
 
         energies = [song["energy"] for song, _, _ in recommendations]
         valences = [song["valence"] for song, _, _ in recommendations]
+        tempos = [song["tempo_bpm"] for song, _, _ in recommendations if song.get("tempo_bpm") is not None]
         avg_energy = sum(energies) / len(energies)
         avg_valence = sum(valences) / len(valences)
+        avg_tempo = (sum(tempos) / len(tempos)) if tempos else profile.get("target_tempo", 110.0)
 
         refined_profile: Dict = {}
         feedback = []
@@ -60,10 +63,21 @@ class HeuristicEvaluator:
                 refined_profile["target_valence"] = max(0.0, profile["target_valence"] - 0.15)
                 feedback.append("Lower target valence for sad or moody requests.")
 
+        # Reflection heuristic: upbeat intent should satisfy both energy and tempo coherence.
+        if self._contains_any(normalized, ["upbeat", "energetic", "high energy", "lively"]):
+            if avg_energy >= 0.75 and avg_tempo < 105.0:
+                refined_profile["target_tempo"] = min(220.0, profile.get("target_tempo", 110.0) + 10.0)
+                feedback.append("Upbeat request needs faster tempo; increasing target tempo for next iteration.")
+        if self._contains_any(normalized, ["chill", "relaxed", "mellow"]):
+            if avg_energy <= 0.45 and avg_tempo > 100.0:
+                refined_profile["target_tempo"] = max(40.0, profile.get("target_tempo", 100.0) - 8.0)
+                feedback.append("Chill request needs slower pacing; lowering target tempo for next iteration.")
+
         if quality_score < quality_threshold and not refined_profile and avg_score < 6.0:
             refined_profile["target_energy"] = min(1.0, profile["target_energy"] + 0.1)
             feedback.append("Refining energy target to improve recommendation quality.")
 
+        requested_genres = self._extract_requested_genres(normalized)
         artist_reference = profile.get("seed_artist", "")
         if self._is_artist_style_query(normalized, artist_reference):
             style_targets = self._get_artist_style_targets(artist_reference)
@@ -76,7 +90,6 @@ class HeuristicEvaluator:
                     f"Top results are not style-aligned with {artist_reference}; refining genre and groove targets."
                 )
 
-        requested_genres = self._extract_requested_genres(normalized)
         recommended_genres = {song.get("genre", "").lower().strip() for song, _, _ in recommendations}
         missing_requested_genres = [genre for genre in requested_genres if genre not in recommended_genres]
         coverage_gap = bool(missing_requested_genres)
@@ -84,6 +97,17 @@ class HeuristicEvaluator:
             feedback.append(
                 f"Dataset coverage gap: requested genre(s) not found in top candidates ({', '.join(missing_requested_genres)})."
             )
+
+        unresolved_artist_intent = self._has_unresolved_artist_intent(normalized, profile, requested_genres)
+        if unresolved_artist_intent:
+            coverage_gap = True
+            feedback.append(
+                "Artist intent unresolved: query requests artist-specific music but no seed artist was identified."
+            )
+
+        if self._has_unresolved_era_intent(normalized, recommendations):
+            coverage_gap = True
+            feedback.append("Era intent unresolved: requested era is not represented in top recommendations.")
 
         evidence_count = self._count_supported_signals(profile, recommendations, requested_genres)
         confidence_score = self._compute_confidence_score(
@@ -98,8 +122,10 @@ class HeuristicEvaluator:
                 "Low confidence result: I may not have enough matching songs for this request. "
                 "Try broadening the genre or add more songs in the requested style."
             )
-
-        reason = " | ".join(feedback) if feedback else "Results appear reasonable, no further refinement suggested."
+        if feedback:
+            reason = "Not reasonable: " + " | ".join(feedback)
+        else:
+            reason = "Reasonable and evidence-backed; no further refinement suggested."
         return {
             "quality_score": quality_score,
             "feedback": reason,
@@ -178,7 +204,51 @@ class HeuristicEvaluator:
     def _contains_any(self, query: str, keywords: List[str]) -> bool:
         return any(keyword in query for keyword in keywords)
 
+    def _has_unresolved_artist_intent(self, query: str, profile: Dict, requested_genres: List[str]) -> bool:
+        has_seed_artist = bool(profile.get("seed_artist", "").strip())
+        if has_seed_artist:
+            return False
+        if requested_genres:
+            return False
+        artist_intent_patterns = [
+            r"\bsimilar to\b",
+            r"\blike\b",
+            r"\bin the style of\b",
+            r"\bsounds like\b",
+            r"\bwant\s+[a-z0-9 .&']+\s+music\b",
+        ]
+        return any(re.search(pattern, query) for pattern in artist_intent_patterns)
+
+    def _has_unresolved_era_intent(self, query: str, recommendations: List[Tuple[Dict, float, str]]) -> bool:
+        era_patterns = [
+            r"\b(19|20)\d0'?s\b",
+            r"\b(19|20)\d{2}'s\b",
+            r"\b\d{2}s\b",
+        ]
+        if not any(re.search(pattern, query) for pattern in era_patterns):
+            return False
+        recommended_eras = {song.get("era", "").lower().strip() for song, _, _ in recommendations}
+        normalized_query = query.replace("'", "")
+        if "1950s" in normalized_query and "1950s" not in recommended_eras:
+            return True
+        if "1960s" in normalized_query and "1960s" not in recommended_eras:
+            return True
+        if "1970s" in normalized_query and "1970s" not in recommended_eras:
+            return True
+        if "1980s" in normalized_query and "1980s" not in recommended_eras:
+            return True
+        if "1990s" in normalized_query and "1990s" not in recommended_eras:
+            return True
+        if "2000s" in normalized_query and "2000s" not in recommended_eras:
+            return True
+        if "2010s" in normalized_query and "2010s" not in recommended_eras:
+            return True
+        if "2020s" in normalized_query and "2020s" not in recommended_eras:
+            return True
+        return False
+
     def _extract_requested_genres(self, query: str) -> List[str]:
+        normalized_query = query.lower()
         genre_aliases = {
             "kpop": "k-pop",
             "k-pop": "k-pop",
@@ -215,13 +285,21 @@ class HeuristicEvaluator:
             "punk",
             "ambient",
         ]
-        normalized_query = query.lower()
         extracted = []
         for alias, canonical in genre_aliases.items():
-            if alias in normalized_query and canonical not in extracted:
+            alias_pattern = rf"(?<![a-z0-9]){re.escape(alias)}(?![a-z0-9])"
+            if re.search(alias_pattern, normalized_query) and canonical not in extracted:
                 extracted.append(canonical)
+
+        # Prevent broad genre false positives (e.g., "pop" inside "kpop").
+        scrubbed_query = normalized_query
+        for alias in genre_aliases:
+            alias_pattern = rf"(?<![a-z0-9]){re.escape(alias)}(?![a-z0-9])"
+            scrubbed_query = re.sub(alias_pattern, " ", scrubbed_query)
+
         for genre in known_genres:
-            if genre in normalized_query and genre not in extracted:
+            genre_pattern = rf"(?<![a-z0-9]){re.escape(genre)}(?![a-z0-9])"
+            if re.search(genre_pattern, scrubbed_query) and genre not in extracted:
                 extracted.append(genre)
         return extracted
 

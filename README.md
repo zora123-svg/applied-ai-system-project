@@ -296,22 +296,23 @@ Expected output:
 
 ### Running Tests
 
-Run the starter tests with:
+Run the full test suite with:
 
 ```bash
-pytest
+python -m pytest -q
 ```
 
+Using `python -m pytest` ensures the `src` package is resolved consistently across environments.
 You can add more tests in `tests/test_recommender.py`.
 
 ### Reliability and Evaluation
 
-- **Automated tests:** 14 tests pass, covering the recommender engine, agent profile extraction, fallback retrieval behavior, and edge-case scoring.
+- **Automated tests:** 30 tests pass, covering the recommender engine, retrieval layer, agent profile extraction, inference adapters, fallback behavior, and edge-case scoring.
 - **Quality scoring:** The agent computes an internal `quality_score` on a 1–10 scale and uses it to decide whether to refine recommendations.
 - **Logging and error handling:** The agent writes structured logs to `logs/agent.log`, and the retrieval layer falls back to the local catalog when Last.fm calls fail.
 - **Human review:** The README includes example outputs and reasoning chains so a reviewer can compare model decisions to expected behavior.
 
-Summary: 14 out of 14 tests passed; the AI is reliable for the implemented recommendation and retrieval cases, with validation rules and log tracing supporting debugging when external context is missing.
+Summary: 30 out of 30 tests passed in the current suite; the AI is reliable for the implemented recommendation, retrieval, and agent orchestration cases, with validation rules and log tracing supporting debugging when external context is missing.
 
 ### Testing Summary
 

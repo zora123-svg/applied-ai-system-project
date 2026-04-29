@@ -185,3 +185,397 @@
 [2026-04-27 08:19:24] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
 [2026-04-27 08:19:24] ITERATION 1 | quality: 9/10 | feedback: Results appear reasonable, no further refinement suggested.
 [2026-04-27 08:19:24] FINAL: 5 candidate(s) returned
+[2026-04-27 08:27:58] QUERY: "Give me something simmilar to tupac"
+[2026-04-27 08:27:58] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 08:27:58] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-27 08:27:58] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-27 08:27:58] FINAL: 5 candidate(s) returned
+[2026-04-27 08:38:03] QUERY: "Give me something simmilar to tupac"
+[2026-04-27 08:38:03] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-27 08:38:03] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-27 08:38:03] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-27 08:38:03] FINAL: 5 candidate(s) returned
+[2026-04-28 00:03:17] QUERY: "Give me something simmilar to tupac"
+[2026-04-28 00:03:18] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:03:18] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 00:03:18] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 00:03:18] FINAL: 5 candidate(s) returned
+[2026-04-28 00:05:54] QUERY: "I want relaxed music"
+[2026-04-28 00:05:54] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.35, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:05:54] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.10
+[2026-04-28 00:05:54] ITERATION 1 | quality: 8/10 | confidence: 0.53 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 00:05:54] REFINED PROFILE: {'target_energy': 0.19999999999999998}
+[2026-04-28 00:05:54] ITERATION 2 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.19999999999999998, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:05:54] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.80
+[2026-04-28 00:05:54] ITERATION 2 | quality: 7/10 | confidence: 0.47 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 00:05:54] REFINED PROFILE: {'target_energy': 0.04999999999999999}
+[2026-04-28 00:05:54] FINAL: 1 candidate(s) returned
+[2026-04-28 00:05:54] QUERY: "I want kpop music"
+[2026-04-28 00:05:54] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:05:54] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-28 00:05:54] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-28 00:05:54] FINAL: 1 candidate(s) returned
+[2026-04-28 00:18:10] QUERY: "Give me something simmilar to tupac"
+[2026-04-28 00:18:10] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:18:10] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 00:18:10] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 00:18:10] FINAL: 5 candidate(s) returned
+[2026-04-28 00:18:34] QUERY: "I want relaxed music"
+[2026-04-28 00:18:34] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.35, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:18:34] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.10
+[2026-04-28 00:18:34] ITERATION 1 | quality: 8/10 | confidence: 0.53 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 00:18:34] REFINED PROFILE: {'target_energy': 0.19999999999999998}
+[2026-04-28 00:18:34] ITERATION 2 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.19999999999999998, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:18:34] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.80
+[2026-04-28 00:18:34] ITERATION 2 | quality: 7/10 | confidence: 0.47 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 00:18:34] REFINED PROFILE: {'target_energy': 0.04999999999999999}
+[2026-04-28 00:18:34] FINAL: 1 candidate(s) returned
+[2026-04-28 00:18:34] QUERY: "I want kpop music"
+[2026-04-28 00:18:34] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:18:34] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-28 00:18:34] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-28 00:18:34] FINAL: 1 candidate(s) returned
+[2026-04-28 00:20:24] QUERY: "I want relaxed music"
+[2026-04-28 00:20:24] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.35, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:20:24] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.10
+[2026-04-28 00:20:24] ITERATION 1 | quality: 8/10 | confidence: 0.53 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 00:20:24] REFINED PROFILE: {'target_energy': 0.19999999999999998}
+[2026-04-28 00:20:24] ITERATION 2 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'chill', 'target_energy': 0.19999999999999998, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.45, 'target_tempo': 80.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:20:24] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.80
+[2026-04-28 00:20:24] ITERATION 2 | quality: 7/10 | confidence: 0.47 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 00:20:24] REFINED PROFILE: {'target_energy': 0.04999999999999999}
+[2026-04-28 00:20:24] FINAL: 1 candidate(s) returned
+[2026-04-28 00:20:24] QUERY: "I want kpop music"
+[2026-04-28 00:20:24] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:20:24] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-28 00:20:24] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-28 00:20:24] FINAL: 1 candidate(s) returned
+[2026-04-28 00:21:09] QUERY: "Give me something simmilar to tupac"
+[2026-04-28 00:21:09] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:21:09] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 00:21:09] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 00:21:09] FINAL: 5 candidate(s) returned
+[2026-04-28 00:23:01] QUERY: "Give me something simmilar to tupac"
+[2026-04-28 00:23:01] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:23:01] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 00:23:01] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 00:23:01] FINAL: 5 candidate(s) returned
+[2026-04-28 00:29:18] QUERY: "I am hungry"
+[2026-04-28 00:29:18] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:29:18] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 00:29:18] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 00:29:18] FINAL: 5 candidate(s) returned
+[2026-04-28 00:30:01] QUERY: "I pop music"
+[2026-04-28 00:30:01] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:30:01] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 00:30:01] ITERATION 1 | quality: 9/10 | confidence: 0.94 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 00:30:01] FINAL: 5 candidate(s) returned
+[2026-04-28 00:30:27] QUERY: "I pop music in 2000's"
+[2026-04-28 00:30:27] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:30:27] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 00:30:27] ITERATION 1 | quality: 9/10 | confidence: 0.94 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 00:30:27] FINAL: 5 candidate(s) returned
+[2026-04-28 00:30:42] QUERY: "I pop music in 1950's"
+[2026-04-28 00:30:42] ITERATION 1 | profile: {'favorite_genre': 'pop', 'favorite_mood': 'happy', 'target_energy': 0.65, 'likes_acoustic': False, 'prefers_instrumental': False, 'target_speechiness': 0.1, 'target_liveness': 0.15, 'target_valence': 0.7, 'min_popularity': 0, 'target_danceability': 0.65, 'target_tempo': 110.0, 'preferred_era': '2020s', 'avoid_explicit': False, 'target_loudness': -8.0}
+[2026-04-28 00:30:42] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 00:30:42] ITERATION 1 | quality: 9/10 | confidence: 0.94 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 00:30:42] FINAL: 5 candidate(s) returned
+[2026-04-28 00:34:38] QUERY: "I want relaxed music"
+[2026-04-28 00:34:38] ITERATION 1 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.35, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 00:34:38] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 00:34:38] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.10
+[2026-04-28 00:34:38] ITERATION 1 | quality: 8/10 | confidence: 0.53 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 00:34:38] REFINED PROFILE: {'target_energy': 0.19999999999999998}
+[2026-04-28 00:34:38] ITERATION 2 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.19999999999999998, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 00:34:38] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 00:34:38] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.80
+[2026-04-28 00:34:38] ITERATION 2 | quality: 7/10 | confidence: 0.47 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 00:34:38] REFINED PROFILE: {'target_energy': 0.04999999999999999}
+[2026-04-28 00:34:38] FINAL: 1 candidate(s) returned
+[2026-04-28 00:34:38] QUERY: "I want kpop music"
+[2026-04-28 00:34:38] ITERATION 1 | profile_delta: {}
+[2026-04-28 00:34:38] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 00:34:38] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-28 00:34:38] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-28 00:34:38] FINAL: 1 candidate(s) returned
+[2026-04-28 00:34:38] QUERY: "I want upbeat acoustic pop like Neon Echo"
+[2026-04-28 00:34:38] ITERATION 1 | profile_delta: {'target_energy': 0.85, 'likes_acoustic': True, 'target_tempo': 120.0, 'seed_artist': 'Neon Echo'}
+[2026-04-28 00:34:38] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 00:34:38] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=10.80
+[2026-04-28 00:34:38] ITERATION 1 | quality: 9/10 | confidence: 0.79 | coverage_gap: False | feedback: Increase target energy to better match upbeat requests.
+[2026-04-28 00:34:38] REFINED PROFILE: {'target_energy': 1.0}
+[2026-04-28 00:34:38] FINAL: 1 candidate(s) returned
+[2026-04-28 00:35:10] QUERY: "I jazz  music in 1950's"
+[2026-04-28 00:35:10] ITERATION 1 | profile_delta: {'favorite_genre': 'jazz'}
+[2026-04-28 00:35:10] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 1}
+[2026-04-28 00:35:10] ITERATION 1 | top_result: Polaroid Summer (Daydream Motel) score=10.30
+[2026-04-28 00:35:10] ITERATION 1 | quality: 8/10 | confidence: 0.13 | coverage_gap: True | feedback: Dataset coverage gap: requested genre(s) not found in top candidates (jazz).
+[2026-04-28 00:35:10] FINAL: 5 candidate(s) returned
+[2026-04-28 00:35:59] QUERY: "I want pop  music in 1950's"
+[2026-04-28 00:35:59] ITERATION 1 | profile_delta: {}
+[2026-04-28 00:35:59] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 00:35:59] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 00:35:59] ITERATION 1 | quality: 9/10 | confidence: 0.94 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 00:35:59] FINAL: 5 candidate(s) returned
+[2026-04-28 00:36:35] QUERY: "I want tupac  music in 1950's"
+[2026-04-28 00:36:35] ITERATION 1 | profile_delta: {}
+[2026-04-28 00:36:35] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 00:36:35] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 00:36:35] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 00:36:35] FINAL: 5 candidate(s) returned
+[2026-04-28 01:02:25] QUERY: "I want relaxed music"
+[2026-04-28 01:02:25] ITERATION 1 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.33, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 01:02:25] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 01:02:25] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.06
+[2026-04-28 01:02:25] ITERATION 1 | quality: 8/10 | confidence: 0.53 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 01:02:25] REFINED PROFILE: {'target_energy': 0.18000000000000002}
+[2026-04-28 01:02:25] ITERATION 2 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.18000000000000002, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 01:02:25] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 01:02:25] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.76
+[2026-04-28 01:02:25] ITERATION 2 | quality: 7/10 | confidence: 0.47 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 01:02:25] REFINED PROFILE: {'target_energy': 0.030000000000000027}
+[2026-04-28 01:02:25] FINAL: 1 candidate(s) returned
+[2026-04-28 01:02:25] QUERY: "I want kpop music"
+[2026-04-28 01:02:25] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:02:25] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:02:25] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-28 01:02:25] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-28 01:02:25] FINAL: 1 candidate(s) returned
+[2026-04-28 01:02:25] QUERY: "I want upbeat acoustic pop like Neon Echo"
+[2026-04-28 01:02:25] ITERATION 1 | profile_delta: {'target_energy': 0.83, 'likes_acoustic': True, 'target_tempo': 120.0, 'seed_artist': 'Neon Echo'}
+[2026-04-28 01:02:25] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 01:02:25] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=10.84
+[2026-04-28 01:02:25] ITERATION 1 | quality: 9/10 | confidence: 0.79 | coverage_gap: False | feedback: Increase target energy to better match upbeat requests.
+[2026-04-28 01:02:25] REFINED PROFILE: {'target_energy': 0.98}
+[2026-04-28 01:02:25] FINAL: 1 candidate(s) returned
+[2026-04-28 01:02:44] QUERY: "I want relaxed music"
+[2026-04-28 01:02:44] ITERATION 1 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.33, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 01:02:44] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 01:02:44] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.06
+[2026-04-28 01:02:44] ITERATION 1 | quality: 8/10 | confidence: 0.53 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 01:02:44] REFINED PROFILE: {'target_energy': 0.18000000000000002}
+[2026-04-28 01:02:44] ITERATION 2 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.18000000000000002, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 01:02:44] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 01:02:44] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.76
+[2026-04-28 01:02:44] ITERATION 2 | quality: 7/10 | confidence: 0.47 | coverage_gap: False | feedback: Lower target energy to match chill requests.
+[2026-04-28 01:02:44] REFINED PROFILE: {'target_energy': 0.030000000000000027}
+[2026-04-28 01:02:44] FINAL: 1 candidate(s) returned
+[2026-04-28 01:02:44] QUERY: "I want kpop music"
+[2026-04-28 01:02:44] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:02:44] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:02:44] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-28 01:02:44] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-28 01:02:44] FINAL: 1 candidate(s) returned
+[2026-04-28 01:02:44] QUERY: "I want upbeat acoustic pop like Neon Echo"
+[2026-04-28 01:02:44] ITERATION 1 | profile_delta: {'target_energy': 0.83, 'likes_acoustic': True, 'target_tempo': 120.0, 'seed_artist': 'Neon Echo'}
+[2026-04-28 01:02:44] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 01:02:44] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=10.84
+[2026-04-28 01:02:44] ITERATION 1 | quality: 9/10 | confidence: 0.79 | coverage_gap: False | feedback: Increase target energy to better match upbeat requests.
+[2026-04-28 01:02:44] REFINED PROFILE: {'target_energy': 0.98}
+[2026-04-28 01:02:44] FINAL: 1 candidate(s) returned
+[2026-04-28 01:03:22] QUERY: "I pop music in 1950's"
+[2026-04-28 01:03:22] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:03:22] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:03:22] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 01:03:22] ITERATION 1 | quality: 9/10 | confidence: 0.94 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 01:03:22] FINAL: 5 candidate(s) returned
+[2026-04-28 01:03:55] QUERY: "I want tupac  music in 1950's"
+[2026-04-28 01:03:55] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:03:55] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:03:55] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 01:03:55] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 01:03:55] FINAL: 5 candidate(s) returned
+[2026-04-28 01:04:20] QUERY: "I want micheale Jackson  music in 1950's"
+[2026-04-28 01:04:20] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:04:20] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:04:20] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 01:04:20] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Results appear reasonable, no further refinement suggested.
+[2026-04-28 01:04:20] FINAL: 5 candidate(s) returned
+[2026-04-28 01:08:27] QUERY: "I want relaxed music"
+[2026-04-28 01:08:27] ITERATION 1 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.33, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 01:08:27] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 01:08:27] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.06
+[2026-04-28 01:08:27] ITERATION 1 | quality: 8/10 | confidence: 0.18 | coverage_gap: True | feedback: Not reasonable: Lower target energy to match chill requests. | Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-28 01:08:27] REFINED PROFILE: {'target_energy': 0.18000000000000002}
+[2026-04-28 01:08:27] ITERATION 2 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.18000000000000002, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 01:08:27] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 01:08:27] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.76
+[2026-04-28 01:08:27] ITERATION 2 | quality: 7/10 | confidence: 0.12 | coverage_gap: True | feedback: Not reasonable: Lower target energy to match chill requests. | Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-28 01:08:27] REFINED PROFILE: {'target_energy': 0.030000000000000027}
+[2026-04-28 01:08:27] FINAL: 1 candidate(s) returned
+[2026-04-28 01:08:27] QUERY: "I want kpop music"
+[2026-04-28 01:08:27] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:08:27] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:08:27] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-28 01:08:27] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-28 01:08:27] FINAL: 1 candidate(s) returned
+[2026-04-28 01:08:27] QUERY: "I want upbeat acoustic pop like Neon Echo"
+[2026-04-28 01:08:27] ITERATION 1 | profile_delta: {'target_energy': 0.83, 'likes_acoustic': True, 'target_tempo': 120.0, 'seed_artist': 'Neon Echo'}
+[2026-04-28 01:08:27] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 01:08:27] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=10.84
+[2026-04-28 01:08:27] ITERATION 1 | quality: 9/10 | confidence: 0.79 | coverage_gap: False | feedback: Not reasonable: Increase target energy to better match upbeat requests.
+[2026-04-28 01:08:27] REFINED PROFILE: {'target_energy': 0.98}
+[2026-04-28 01:08:27] FINAL: 1 candidate(s) returned
+[2026-04-28 01:08:56] QUERY: "I want relaxed music"
+[2026-04-28 01:08:56] ITERATION 1 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.33, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 01:08:56] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 01:08:56] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.06
+[2026-04-28 01:08:56] ITERATION 1 | quality: 8/10 | confidence: 0.18 | coverage_gap: True | feedback: Not reasonable: Lower target energy to match chill requests. | Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-28 01:08:56] REFINED PROFILE: {'target_energy': 0.18000000000000002}
+[2026-04-28 01:08:56] ITERATION 2 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.18000000000000002, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 01:08:56] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 01:08:56] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.76
+[2026-04-28 01:08:56] ITERATION 2 | quality: 7/10 | confidence: 0.12 | coverage_gap: True | feedback: Not reasonable: Lower target energy to match chill requests. | Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-28 01:08:56] REFINED PROFILE: {'target_energy': 0.030000000000000027}
+[2026-04-28 01:08:56] FINAL: 1 candidate(s) returned
+[2026-04-28 01:08:56] QUERY: "I want kpop music"
+[2026-04-28 01:08:56] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:08:56] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:08:56] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-28 01:08:56] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-28 01:08:56] FINAL: 1 candidate(s) returned
+[2026-04-28 01:08:56] QUERY: "I want upbeat acoustic pop like Neon Echo"
+[2026-04-28 01:08:56] ITERATION 1 | profile_delta: {'target_energy': 0.83, 'likes_acoustic': True, 'target_tempo': 120.0, 'seed_artist': 'Neon Echo'}
+[2026-04-28 01:08:56] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 01:08:56] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=10.84
+[2026-04-28 01:08:56] ITERATION 1 | quality: 9/10 | confidence: 0.79 | coverage_gap: False | feedback: Not reasonable: Increase target energy to better match upbeat requests.
+[2026-04-28 01:08:56] REFINED PROFILE: {'target_energy': 0.98}
+[2026-04-28 01:08:56] FINAL: 1 candidate(s) returned
+[2026-04-28 01:09:40] QUERY: "I want micheale Jackson  music in 1950's"
+[2026-04-28 01:09:40] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:09:40] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:09:40] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 01:09:40] ITERATION 1 | quality: 9/10 | confidence: 0.39 | coverage_gap: True | feedback: Not reasonable: Artist intent unresolved: query requests artist-specific music but no seed artist was identified. | Era intent unresolved: requested era is not represented in top recommendations.
+[2026-04-28 01:09:40] FINAL: 5 candidate(s) returned
+[2026-04-28 01:10:16] QUERY: "I want pop  music in 1950's"
+[2026-04-28 01:10:16] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:10:16] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:10:16] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 01:10:16] ITERATION 1 | quality: 9/10 | confidence: 0.59 | coverage_gap: True | feedback: Not reasonable: Era intent unresolved: requested era is not represented in top recommendations.
+[2026-04-28 01:10:16] FINAL: 5 candidate(s) returned
+[2026-04-28 01:10:50] QUERY: "I want pop  music "
+[2026-04-28 01:10:50] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:10:50] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:10:50] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 01:10:50] ITERATION 1 | quality: 9/10 | confidence: 0.94 | coverage_gap: False | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-28 01:10:50] FINAL: 5 candidate(s) returned
+[2026-04-28 01:11:35] QUERY: "I want black music  music "
+[2026-04-28 01:11:35] ITERATION 1 | profile_delta: {}
+[2026-04-28 01:11:35] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 01:11:35] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-28 01:11:35] ITERATION 1 | quality: 9/10 | confidence: 0.39 | coverage_gap: True | feedback: Not reasonable: Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-28 01:11:35] FINAL: 5 candidate(s) returned
+[2026-04-28 01:13:25] AI PROFILE ERROR: Anthropic request failed: 401 Client Error: Unauthorized for url: https://api.anthropic.com/v1/messages
+[2026-04-28 01:13:25] QUERY: "I want something similar to Tupac"
+[2026-04-28 01:15:59] AI PROFILE ERROR: Anthropic request failed: 401 Client Error: Unauthorized for url: https://api.anthropic.com/v1/messages
+[2026-04-28 01:15:59] QUERY: "I want something similar to Tupac"
+[2026-04-28 04:32:46] AI PROFILE ERROR: Anthropic request failed: 400 Client Error: Bad Request for url: https://api.anthropic.com/v1/messages
+[2026-04-28 04:32:46] QUERY: "I want something similar to Tupac"
+[2026-04-28 21:48:24] QUERY: "I want relaxed music"
+[2026-04-28 21:48:24] ITERATION 1 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.33, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 21:48:24] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 21:48:24] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.06
+[2026-04-28 21:48:24] ITERATION 1 | quality: 8/10 | confidence: 0.18 | coverage_gap: True | feedback: Not reasonable: Lower target energy to match chill requests. | Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-28 21:48:24] REFINED PROFILE: {'target_energy': 0.18000000000000002}
+[2026-04-28 21:48:24] ITERATION 2 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.18000000000000002, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 21:48:24] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 21:48:24] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.76
+[2026-04-28 21:48:24] ITERATION 2 | quality: 7/10 | confidence: 0.12 | coverage_gap: True | feedback: Not reasonable: Lower target energy to match chill requests. | Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-28 21:48:24] REFINED PROFILE: {'target_energy': 0.030000000000000027}
+[2026-04-28 21:48:24] FINAL: 1 candidate(s) returned
+[2026-04-28 21:48:24] QUERY: "I want kpop music"
+[2026-04-28 21:48:24] ITERATION 1 | profile_delta: {}
+[2026-04-28 21:48:24] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 21:48:24] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-28 21:48:24] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-28 21:48:24] FINAL: 1 candidate(s) returned
+[2026-04-28 21:48:24] QUERY: "I want upbeat acoustic pop like Neon Echo"
+[2026-04-28 21:48:24] ITERATION 1 | profile_delta: {'target_energy': 0.83, 'likes_acoustic': True, 'target_tempo': 120.0, 'seed_artist': 'Neon Echo'}
+[2026-04-28 21:48:24] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 21:48:24] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=10.84
+[2026-04-28 21:48:24] ITERATION 1 | quality: 9/10 | confidence: 0.79 | coverage_gap: False | feedback: Not reasonable: Increase target energy to better match upbeat requests.
+[2026-04-28 21:48:24] REFINED PROFILE: {'target_energy': 0.98}
+[2026-04-28 21:48:24] FINAL: 1 candidate(s) returned
+[2026-04-28 21:55:25] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-28 21:55:25] ITERATION 1 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 0.83, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-28 21:55:25] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 21:55:25] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=10.41
+[2026-04-28 21:55:25] ITERATION 1 | quality: 9/10 | confidence: 0.39 | coverage_gap: False | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-28 21:55:25] REFINED PROFILE: {'target_energy': 0.98, 'target_danceability': 0.73}
+[2026-04-28 21:55:25] ITERATION 2 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 0.98, 'target_danceability': 0.73, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-28 21:55:25] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 5}
+[2026-04-28 21:55:25] ITERATION 2 | top_result: Sunrise City (Neon Echo) score=10.19
+[2026-04-28 21:55:25] ITERATION 2 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-28 21:55:25] REFINED PROFILE: {'target_energy': 1.0, 'target_danceability': 0.8099999999999999}
+[2026-04-28 21:55:25] ITERATION 3 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 1.0, 'target_danceability': 0.8099999999999999, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-28 21:55:25] ITERATION 3 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 5}
+[2026-04-28 21:55:25] ITERATION 3 | top_result: Lagos Dawn (Solar Steps) score=10.23
+[2026-04-28 21:55:25] ITERATION 3 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-28 21:55:25] REFINED PROFILE: {'target_energy': 1.0, 'target_danceability': 0.8899999999999999}
+[2026-04-28 21:55:25] FINAL: 5 candidate(s) returned
+[2026-04-28 22:00:37] QUERY: "I want something like Prince but more R&B"
+[2026-04-28 22:00:37] ITERATION 1 | profile_delta: {'favorite_genre': 'funk', 'seed_artist': 'Prince'}
+[2026-04-28 22:00:37] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 2}
+[2026-04-28 22:00:37] ITERATION 1 | top_result: Polaroid Summer (Daydream Motel) score=10.30
+[2026-04-28 22:00:37] ITERATION 1 | quality: 8/10 | confidence: 0.13 | coverage_gap: True | feedback: Not reasonable: Dataset coverage gap: requested genre(s) not found in top candidates (r&b).
+[2026-04-28 22:00:37] FINAL: 5 candidate(s) returned
+[2026-04-28 22:01:12] QUERY: "I want something like BTS  but more R&B"
+[2026-04-28 22:01:12] ITERATION 1 | profile_delta: {'favorite_genre': 'k-pop', 'seed_artist': 'BTS'}
+[2026-04-28 22:01:12] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 2}
+[2026-04-28 22:01:12] ITERATION 1 | top_result: Summer in Busan (Peach Signal) score=11.03
+[2026-04-28 22:01:12] ITERATION 1 | quality: 9/10 | confidence: 0.39 | coverage_gap: True | feedback: Not reasonable: Dataset coverage gap: requested genre(s) not found in top candidates (r&b).
+[2026-04-28 22:01:12] FINAL: 5 candidate(s) returned
+[2026-04-28 22:01:55] QUERY: "I want something like Drake"
+[2026-04-28 22:01:56] ITERATION 1 | profile_delta: {'favorite_genre': 'hip-hop', 'target_danceability': 0.73, 'target_tempo': 104.0, 'seed_artist': 'Drake'}
+[2026-04-28 22:01:56] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 22:01:56] ITERATION 1 | top_result: Polaroid Summer (Daydream Motel) score=10.32
+[2026-04-28 22:01:56] ITERATION 1 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | feedback: Not reasonable: Top results are not style-aligned with Drake; refining genre and groove targets.
+[2026-04-28 22:01:56] REFINED PROFILE: {'target_danceability': 0.8099999999999999}
+[2026-04-28 22:01:56] ITERATION 2 | profile_delta: {'favorite_genre': 'hip-hop', 'target_danceability': 0.8099999999999999, 'target_tempo': 104.0, 'seed_artist': 'Drake'}
+[2026-04-28 22:01:56] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 22:01:56] ITERATION 2 | top_result: Polaroid Summer (Daydream Motel) score=10.40
+[2026-04-28 22:01:56] ITERATION 2 | quality: 9/10 | confidence: 0.39 | coverage_gap: False | feedback: Not reasonable: Top results are not style-aligned with Drake; refining genre and groove targets.
+[2026-04-28 22:01:56] REFINED PROFILE: {'target_danceability': 0.8899999999999999}
+[2026-04-28 22:01:56] ITERATION 3 | profile_delta: {'favorite_genre': 'hip-hop', 'target_danceability': 0.8899999999999999, 'target_tempo': 104.0, 'seed_artist': 'Drake'}
+[2026-04-28 22:01:56] ITERATION 3 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 22:01:56] ITERATION 3 | top_result: Polaroid Summer (Daydream Motel) score=10.32
+[2026-04-28 22:01:56] ITERATION 3 | quality: 9/10 | confidence: 0.39 | coverage_gap: False | feedback: Not reasonable: Top results are not style-aligned with Drake; refining genre and groove targets.
+[2026-04-28 22:01:56] REFINED PROFILE: {'target_danceability': 0.9699999999999999}
+[2026-04-28 22:01:56] FINAL: 5 candidate(s) returned
+[2026-04-28 22:03:03] QUERY: "I want something like Taylor Swift"
+[2026-04-28 22:03:04] ITERATION 1 | profile_delta: {'favorite_genre': 'country', 'seed_artist': 'Taylor Swift'}
+[2026-04-28 22:03:04] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 2}
+[2026-04-28 22:03:04] ITERATION 1 | top_result: Polaroid Summer (Daydream Motel) score=10.30
+[2026-04-28 22:03:04] ITERATION 1 | quality: 8/10 | confidence: 0.48 | coverage_gap: False | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-28 22:03:04] FINAL: 5 candidate(s) returned
+[2026-04-28 22:05:35] QUERY: "I want something like Taylor Swift but more pop"
+[2026-04-28 22:05:35] ITERATION 1 | profile_delta: {'favorite_genre': 'country', 'seed_artist': 'Taylor Swift'}
+[2026-04-28 22:05:35] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 2}
+[2026-04-28 22:05:35] ITERATION 1 | top_result: Polaroid Summer (Daydream Motel) score=10.30
+[2026-04-28 22:05:35] ITERATION 1 | quality: 8/10 | confidence: 0.48 | coverage_gap: False | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-28 22:05:35] FINAL: 5 candidate(s) returned
+[2026-04-28 22:12:45] QUERY: "I want relaxed music"
+[2026-04-28 22:12:45] ITERATION 1 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.33, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 22:12:45] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 22:12:45] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.06
+[2026-04-28 22:12:45] ITERATION 1 | quality: 8/10 | confidence: 0.18 | coverage_gap: True | feedback: Not reasonable: Lower target energy to match chill requests. | Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-28 22:12:45] REFINED PROFILE: {'target_energy': 0.18000000000000002}
+[2026-04-28 22:12:45] ITERATION 2 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.18000000000000002, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-28 22:12:45] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-28 22:12:45] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.76
+[2026-04-28 22:12:45] ITERATION 2 | quality: 7/10 | confidence: 0.12 | coverage_gap: True | feedback: Not reasonable: Lower target energy to match chill requests. | Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-28 22:12:45] REFINED PROFILE: {'target_energy': 0.030000000000000027}
+[2026-04-28 22:12:45] FINAL: 1 candidate(s) returned
+[2026-04-28 22:12:45] QUERY: "I want kpop music"
+[2026-04-28 22:12:45] ITERATION 1 | profile_delta: {}
+[2026-04-28 22:12:45] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-28 22:12:45] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-28 22:12:45] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-28 22:12:45] FINAL: 1 candidate(s) returned
+[2026-04-28 22:12:45] QUERY: "I want upbeat acoustic pop like Neon Echo"
+[2026-04-28 22:12:45] ITERATION 1 | profile_delta: {'target_energy': 0.83, 'likes_acoustic': True, 'target_tempo': 120.0, 'seed_artist': 'Neon Echo'}
+[2026-04-28 22:12:45] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-28 22:12:45] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=10.84
+[2026-04-28 22:12:45] ITERATION 1 | quality: 9/10 | confidence: 0.79 | coverage_gap: False | feedback: Not reasonable: Increase target energy to better match upbeat requests.
+[2026-04-28 22:12:45] REFINED PROFILE: {'target_energy': 0.98}
+[2026-04-28 22:12:45] FINAL: 1 candidate(s) returned
