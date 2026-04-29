@@ -333,6 +333,10 @@ python -m pytest -q
 Using `python -m pytest` ensures the `src` package is resolved consistently across environments.
 You can add more tests in `tests/test_recommender.py`.
 
+### Demo Walkthrough (Loom)
+
+Watch the end-to-end project walkthrough here: [Loom Demo Video](https://www.loom.com/share/af1b7cd124d84219bef88c578eb5754f)
+
 ### Reliability and Evaluation
 
 - **Automated tests:** 30 tests pass, covering the recommender engine, retrieval layer, agent profile extraction, inference adapters, fallback behavior, and edge-case scoring.
