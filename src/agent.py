@@ -262,7 +262,8 @@ class RecommenderAgent:
             self.append_log(
                 "ITERATION "
                 f"{iteration} | quality: {evaluation['quality_score']}/10 | confidence: {evaluation.get('confidence_score', 0.0):.2f} "
-                f"| coverage_gap: {evaluation.get('coverage_gap', False)} | feedback: {evaluation['feedback']}"
+                f"| coverage_gap: {evaluation.get('coverage_gap', False)} | verdict: {evaluation.get('reliability_verdict', 'unknown')} "
+                f"| feedback: {evaluation['feedback']}"
             )
 
             trace_lines.append(f"ITERATION {iteration} | profile_delta: {profile_delta}")
@@ -270,7 +271,8 @@ class RecommenderAgent:
             trace_lines.append(
                 "ITERATION "
                 f"{iteration} | quality: {evaluation['quality_score']}/10 | confidence: {evaluation.get('confidence_score', 0.0):.2f} "
-                f"| coverage_gap: {evaluation.get('coverage_gap', False)} | feedback: {evaluation['feedback']}"
+                f"| coverage_gap: {evaluation.get('coverage_gap', False)} | verdict: {evaluation.get('reliability_verdict', 'unknown')} "
+                f"| feedback: {evaluation['feedback']}"
             )
 
             self.last_evaluation = evaluation

@@ -83,20 +83,46 @@ def _highlights(explanation: str, n: int = 3) -> str:
     return "  |  ".join(keep[:n])
 
 
+def _truncate(text: str, max_len: int) -> str:
+    if len(text) <= max_len:
+        return text
+    return text[: max_len - 3] + "..."
+
+
+def _print_section_title(title: str) -> None:
+    line = "=" * max(72, len(title) + 4)
+    print(f"\n{line}")
+    print(f" {title}")
+    print(line)
+
+
+def _print_reasoning(reasoning: str) -> None:
+    _print_section_title("Agent Reasoning Trace")
+    for line in reasoning.splitlines():
+        if line.strip():
+            print(f"- {line}")
+
+
 def print_table(profile_name: str, recommendations: list, mode: str) -> None:
-    """Print recommendations as a formatted ASCII table."""
-    W = 84
-    TW, AW = 22, 16
-    print(f"\nProfile: {profile_name}  |  Mode: {mode}")
-    print("=" * W)
-    print(f" {'#':<3} {'Title':<{TW}} {'Artist':<{AW}} {'Score':>6}  Top Reasons")
-    print("-" * W)
+    """Print recommendations as a user-friendly ASCII table."""
+    rank_w, title_w, artist_w, score_w, reason_w = 4, 24, 18, 7, 44
+    table_w = rank_w + title_w + artist_w + score_w + reason_w + 17
+    print(f"\nRecommendations for: {profile_name}  |  Mode: {mode}")
+    print("-" * table_w)
+    print(
+        f"| {'#':<{rank_w}} | {'Title':<{title_w}} | {'Artist':<{artist_w}} | {'Score':>{score_w}} | {'Top Reasons':<{reason_w}} |"
+    )
+    print("-" * table_w)
+    if not recommendations:
+        print(f"| {'-':<{rank_w}} | {'No matching recommendations found for this request.':<{table_w - rank_w - 13}} |")
+        print("-" * table_w)
+        return
     for rank, (song, score, explanation) in enumerate(recommendations, 1):
-        title  = song["title"][:TW]
-        artist = song["artist"][:AW]
-        top    = _highlights(explanation, n=3)
-        print(f" {rank:<3} {title:<{TW}} {artist:<{AW}} {score:>6.3f}  {top}")
-    print("=" * W)
+        title = _truncate(song["title"], title_w)
+        artist = _truncate(song["artist"], artist_w)
+        top = _truncate(_highlights(explanation, n=3), reason_w)
+        print(f"| {rank:<{rank_w}} | {title:<{title_w}} | {artist:<{artist_w}} | {score:>{score_w}.3f} | {top:<{reason_w}} |")
+    print("-" * table_w)
 
 
 # ---------------------------------------------------------------------------
@@ -129,7 +155,8 @@ def main() -> None:
     args = parser.parse_args()
 
     songs = load_songs("data/songs.csv")
-    print(f"Loaded {len(songs)} songs\n")
+    _print_section_title("Agentic Music Recommendation System")
+    print(f"Loaded {len(songs)} songs")
 
     if args.agent:
         try:
@@ -153,16 +180,17 @@ def main() -> None:
         agent = RecommenderAgent(api_client=api_client, evaluator=evaluator, profile_extractor=profile_extractor)
         recommendations, reasoning = agent.run(args.agent, songs, k=args.k, mode=args.mode)
         print_table("Agent Query", recommendations, args.mode)
+        _print_section_title("Reliability Check")
+        verdict = agent.last_evaluation.get("reliability_verdict", "unknown")
+        print(f"verdict={verdict}")
+        print(
+            "confidence="
+            f"{agent.last_evaluation.get('confidence_score', 0.0):.2f}, "
+            f"coverage_gap={agent.last_evaluation.get('coverage_gap', False)}"
+        )
         if agent.last_evaluation.get("safe_response"):
-            print("\nReliability note:")
             print(agent.last_evaluation["safe_response"])
-            print(
-                "confidence="
-                f"{agent.last_evaluation.get('confidence_score', 0.0):.2f}, "
-                f"coverage_gap={agent.last_evaluation.get('coverage_gap', False)}"
-            )
-        print("\nReasoning chain:\n")
-        print(reasoning)
+        _print_reasoning(reasoning)
         return
 
     if args.profile:
@@ -173,16 +201,12 @@ def main() -> None:
         return
 
     # Default behavior preserves existing static profile mode.
-    print("=" * 84)
-    print("  RECOMMENDATIONS  —  Relevance Mode")
-    print("=" * 84)
+    _print_section_title("Recommendations - Relevance Mode")
     for name, profile in PROFILES.items():
         recs = recommend_songs(profile, songs, k=5, mode="relevance")
         print_table(name, recs, "relevance")
 
-    print("\n\n" + "=" * 84)
-    print("  RANKING MODE COMPARISON  —  Acoustic Chill Listener")
-    print("=" * 84)
+    _print_section_title("Ranking Mode Comparison - Acoustic Chill Listener")
     for mode in ("relevance", "discovery"):
         recs = recommend_songs(PROFILES["Acoustic Chill Listener"], songs, k=5, mode=mode)
         print_table("Acoustic Chill Listener", recs, mode)

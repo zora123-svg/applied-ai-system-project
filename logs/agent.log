@@ -579,3 +579,93 @@
 [2026-04-28 22:12:45] ITERATION 1 | quality: 9/10 | confidence: 0.79 | coverage_gap: False | feedback: Not reasonable: Increase target energy to better match upbeat requests.
 [2026-04-28 22:12:45] REFINED PROFILE: {'target_energy': 0.98}
 [2026-04-28 22:12:45] FINAL: 1 candidate(s) returned
+[2026-04-29 03:38:55] QUERY: "I want relaxed music"
+[2026-04-29 03:38:55] ITERATION 1 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.33, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-29 03:38:55] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-29 03:38:55] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=9.06
+[2026-04-29 03:38:55] ITERATION 1 | quality: 8/10 | confidence: 0.18 | coverage_gap: True | feedback: Not reasonable: Lower target energy to match chill requests. | Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-29 03:38:55] REFINED PROFILE: {'target_energy': 0.18000000000000002}
+[2026-04-29 03:38:55] ITERATION 2 | profile_delta: {'favorite_mood': 'chill', 'target_energy': 0.18000000000000002, 'target_danceability': 0.45, 'target_tempo': 80.0}
+[2026-04-29 03:38:55] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 4}
+[2026-04-29 03:38:55] ITERATION 2 | top_result: Neon Echo Song (Neon Echo) score=8.76
+[2026-04-29 03:38:55] ITERATION 2 | quality: 7/10 | confidence: 0.12 | coverage_gap: True | feedback: Not reasonable: Lower target energy to match chill requests. | Artist intent unresolved: query requests artist-specific music but no seed artist was identified.
+[2026-04-29 03:38:55] REFINED PROFILE: {'target_energy': 0.030000000000000027}
+[2026-04-29 03:38:55] FINAL: 1 candidate(s) returned
+[2026-04-29 03:38:55] QUERY: "I want kpop music"
+[2026-04-29 03:38:55] ITERATION 1 | profile_delta: {}
+[2026-04-29 03:38:55] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-29 03:38:55] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=11.20
+[2026-04-29 03:38:55] ITERATION 1 | quality: 7/10 | confidence: 0.40 | coverage_gap: True | feedback: insufficient coverage
+[2026-04-29 03:38:55] FINAL: 1 candidate(s) returned
+[2026-04-29 03:38:55] QUERY: "I want upbeat acoustic pop like Neon Echo"
+[2026-04-29 03:38:55] ITERATION 1 | profile_delta: {'target_energy': 0.83, 'likes_acoustic': True, 'target_tempo': 120.0, 'seed_artist': 'Neon Echo'}
+[2026-04-29 03:38:55] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-29 03:38:55] ITERATION 1 | top_result: Neon Echo Song (Neon Echo) score=10.84
+[2026-04-29 03:38:55] ITERATION 1 | quality: 9/10 | confidence: 0.79 | coverage_gap: False | feedback: Not reasonable: Increase target energy to better match upbeat requests.
+[2026-04-29 03:38:55] REFINED PROFILE: {'target_energy': 0.98}
+[2026-04-29 03:38:55] FINAL: 1 candidate(s) returned
+[2026-04-29 03:39:35] QUERY: "I want something like Taylor Swift but more pop"
+[2026-04-29 03:39:35] ITERATION 1 | profile_delta: {'favorite_genre': 'country', 'seed_artist': 'Taylor Swift'}
+[2026-04-29 03:39:35] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 2}
+[2026-04-29 03:39:35] ITERATION 1 | top_result: Polaroid Summer (Daydream Motel) score=10.30
+[2026-04-29 03:39:35] ITERATION 1 | quality: 8/10 | confidence: 0.48 | coverage_gap: False | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-29 03:39:35] FINAL: 5 candidate(s) returned
+[2026-04-29 03:40:33] QUERY: "I want something like Madison Beer"
+[2026-04-29 03:40:33] ITERATION 1 | profile_delta: {'seed_artist': 'Madison Beer'}
+[2026-04-29 03:40:33] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 1}
+[2026-04-29 03:40:33] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-29 03:40:33] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-29 03:40:33] FINAL: 5 candidate(s) returned
+[2026-04-29 03:41:11] QUERY: "I want something like Madison Beer"
+[2026-04-29 03:41:11] ITERATION 1 | profile_delta: {'seed_artist': 'Madison Beer'}
+[2026-04-29 03:41:11] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 1}
+[2026-04-29 03:41:11] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-29 03:41:11] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-29 03:41:11] FINAL: 5 candidate(s) returned
+[2026-04-29 03:41:32] QUERY: "I want something like Madison Beer she is more pop"
+[2026-04-29 03:41:32] ITERATION 1 | profile_delta: {}
+[2026-04-29 03:41:32] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-29 03:41:32] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-29 03:41:32] ITERATION 1 | quality: 9/10 | confidence: 0.94 | coverage_gap: False | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-29 03:41:32] FINAL: 5 candidate(s) returned
+[2026-04-29 03:45:16] QUERY: "I want something like Madison Beer she is more pop"
+[2026-04-29 03:45:16] ITERATION 1 | profile_delta: {}
+[2026-04-29 03:45:16] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-29 03:45:16] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-29 03:45:16] ITERATION 1 | quality: 9/10 | confidence: 0.94 | coverage_gap: False | verdict: reliable | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-29 03:45:16] FINAL: 5 candidate(s) returned
+[2026-04-29 03:47:43] QUERY: "I want something like James Brown"
+[2026-04-29 03:47:43] ITERATION 1 | profile_delta: {'favorite_genre': 'funk', 'seed_artist': 'James Brown'}
+[2026-04-29 03:47:43] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 2}
+[2026-04-29 03:47:43] ITERATION 1 | top_result: Polaroid Summer (Daydream Motel) score=10.30
+[2026-04-29 03:47:43] ITERATION 1 | quality: 8/10 | confidence: 0.48 | coverage_gap: False | verdict: uncertain | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-29 03:47:43] FINAL: 5 candidate(s) returned
+[2026-04-29 03:48:04] QUERY: "I want something like Sly and the family stone"
+[2026-04-29 03:48:05] ITERATION 1 | profile_delta: {'favorite_genre': 'hip-hop', 'target_danceability': 0.73, 'target_tempo': 104.0, 'seed_artist': 'Sly'}
+[2026-04-29 03:48:05] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-29 03:48:05] ITERATION 1 | top_result: Polaroid Summer (Daydream Motel) score=10.32
+[2026-04-29 03:48:05] ITERATION 1 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Top results are not style-aligned with Sly; refining genre and groove targets.
+[2026-04-29 03:48:05] REFINED PROFILE: {'target_danceability': 0.8099999999999999}
+[2026-04-29 03:48:05] ITERATION 2 | profile_delta: {'favorite_genre': 'hip-hop', 'target_danceability': 0.8099999999999999, 'target_tempo': 104.0, 'seed_artist': 'Sly'}
+[2026-04-29 03:48:05] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-29 03:48:05] ITERATION 2 | top_result: Polaroid Summer (Daydream Motel) score=10.40
+[2026-04-29 03:48:05] ITERATION 2 | quality: 9/10 | confidence: 0.39 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Top results are not style-aligned with Sly; refining genre and groove targets.
+[2026-04-29 03:48:05] REFINED PROFILE: {'target_danceability': 0.8899999999999999}
+[2026-04-29 03:48:05] ITERATION 3 | profile_delta: {'favorite_genre': 'hip-hop', 'target_danceability': 0.8899999999999999, 'target_tempo': 104.0, 'seed_artist': 'Sly'}
+[2026-04-29 03:48:05] ITERATION 3 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-29 03:48:05] ITERATION 3 | top_result: Polaroid Summer (Daydream Motel) score=10.32
+[2026-04-29 03:48:05] ITERATION 3 | quality: 9/10 | confidence: 0.39 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Top results are not style-aligned with Sly; refining genre and groove targets.
+[2026-04-29 03:48:05] REFINED PROFILE: {'target_danceability': 0.9699999999999999}
+[2026-04-29 03:48:05] FINAL: 5 candidate(s) returned
+[2026-04-29 03:50:28] QUERY: "I want something simmilar to Lady Gaga "
+[2026-04-29 03:50:28] ITERATION 1 | profile_delta: {}
+[2026-04-29 03:50:28] ITERATION 1 | inference: {'used_default_baseline': True, 'has_seed_artist': False, 'changed_fields_count': 0, 'reason': 'No strong intent signals detected; profile remains at default baseline.'}
+[2026-04-29 03:50:28] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-29 03:50:28] ITERATION 1 | quality: 9/10 | confidence: 0.74 | coverage_gap: False | verdict: reliable | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-29 03:50:28] FINAL: 5 candidate(s) returned
+[2026-04-29 03:52:22] QUERY: "I need some afrobeats"
+[2026-04-29 03:52:22] ITERATION 1 | profile_delta: {'favorite_genre': 'afrobeats'}
+[2026-04-29 03:52:22] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 1}
+[2026-04-29 03:52:22] ITERATION 1 | top_result: Lagos Dawn (Solar Steps) score=11.07
+[2026-04-29 03:52:22] ITERATION 1 | quality: 9/10 | confidence: 0.94 | coverage_gap: False | verdict: reliable | feedback: Reasonable and evidence-backed; no further refinement suggested.
+[2026-04-29 03:52:22] FINAL: 5 candidate(s) returned

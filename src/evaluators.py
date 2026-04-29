@@ -29,6 +29,7 @@ class HeuristicEvaluator:
                 "evidence_count": 0,
                 "coverage_gap": True,
                 "safe_response": "I don't have enough evidence to recommend songs for that request yet.",
+                "reliability_verdict": "uncertain",
             }
 
         scores = [score for _, score, _ in recommendations]
@@ -122,6 +123,9 @@ class HeuristicEvaluator:
                 "Low confidence result: I may not have enough matching songs for this request. "
                 "Try broadening the genre or add more songs in the requested style."
             )
+        reliability_verdict = "reliable"
+        if coverage_gap or confidence_score < 0.65 or bool(refined_profile):
+            reliability_verdict = "uncertain"
         if feedback:
             reason = "Not reasonable: " + " | ".join(feedback)
         else:
@@ -135,6 +139,7 @@ class HeuristicEvaluator:
             "evidence_count": evidence_count,
             "coverage_gap": coverage_gap,
             "safe_response": safe_response,
+            "reliability_verdict": reliability_verdict,
         }
 
     def _map_tag_to_genre(self, tag: str) -> str:

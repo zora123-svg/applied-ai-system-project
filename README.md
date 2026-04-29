@@ -348,7 +348,7 @@ Summary: 30 out of 30 tests passed in the current suite; the AI is reliable for 
 
 ## Limitations and Risks
 
-- **Tiny catalog:** 18 songs across 15 genres means most genres have exactly one representative. A user who prefers blues, classical, or metal will always receive that one song as their top result regardless of fit.
+- **Limited catalog breadth:** 48 songs across 25 genres still leaves uneven representation, with 9 genres having only one song. A user who prefers an underrepresented genre (for example, some niche styles with a single entry) may see that track repeatedly at the top regardless of broader preference fit.
 - **Genre label brittleness:** Genre matching uses exact string equality. "Indie pop" and "pop" score as completely different, even though they describe nearly identical music. Users whose preferred genre is labeled slightly differently in the catalog receive systematically worse recommendations.
 - **Artist diversity is post-hoc:** The artist penalty is applied after scoring, not during. A catalog dominated by one artist would still surface that artist's top song at #1 before the penalty kicks in for later results.
 - **No listening history:** The system treats every session as a blank slate. It cannot learn that a user always skips high-liveness songs or always replays tracks with valence above 0.8.

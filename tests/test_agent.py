@@ -127,6 +127,7 @@ def test_evaluate_results_returns_low_quality_for_empty_recommendations():
     assert result["coverage_gap"] is True
     assert result["confidence_score"] == 0.0
     assert "No recommendations" in result["feedback"]
+    assert result["reliability_verdict"] == "uncertain"
 
 
 def test_evaluate_results_upbeat_query_refines_energy_when_needed():
@@ -226,6 +227,7 @@ def test_evaluate_results_does_not_infer_pop_from_kpop_token():
 
     result = agent.evaluate_results("I want kpop music", profile, recommendations)
     assert result["coverage_gap"] is False
+    assert result["reliability_verdict"] == "reliable"
 
 
 def test_run_stops_unsatisfied_when_not_refining_and_low_confidence():
