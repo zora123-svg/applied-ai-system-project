@@ -669,3 +669,9 @@
 [2026-04-29 03:52:22] ITERATION 1 | top_result: Lagos Dawn (Solar Steps) score=11.07
 [2026-04-29 03:52:22] ITERATION 1 | quality: 9/10 | confidence: 0.94 | coverage_gap: False | verdict: reliable | feedback: Reasonable and evidence-backed; no further refinement suggested.
 [2026-04-29 03:52:22] FINAL: 5 candidate(s) returned
+[2026-04-29 16:37:39] QUERY: "I want kpop music from the 1950s"
+[2026-04-29 16:37:39] ITERATION 1 | profile_delta: {'seed_artist': 'the 1950s'}
+[2026-04-29 16:37:39] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 1}
+[2026-04-29 16:37:39] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
+[2026-04-29 16:37:39] ITERATION 1 | quality: 9/10 | confidence: 0.39 | coverage_gap: True | verdict: uncertain | feedback: Not reasonable: Dataset coverage gap: requested genre(s) not found in top candidates (k-pop). | Era intent unresolved: requested era is not represented in top recommendations.
+[2026-04-29 16:37:39] FINAL: 5 candidate(s) returned
