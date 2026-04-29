@@ -100,41 +100,54 @@ The weights were chosen so that genre is the strongest discrete signal and energ
 
 ### Data Flow Diagram
 
-graph TD
-    %% User Input
-    User((User Interface)) -->|Natural Language Query| Agent[Recommender Agent]
+Source file: `assets/system_diagram.mmd`
 
-    %% Agentic Reasoning Loop
-    subgraph Agentic_Loop [Agentic Intelligence]
-        Agent --> Tool1[extract_profile]
-        Tool1 -->|Structured Profile| Profile{User Profile}
-        Profile --> Tool2[evaluate_results]
-        Tool2 -->|Feedback/Refine| Agent
-    end
+```mermaid
+flowchart TD
+    U[User Query or CLI Command] --> M[src/main.py]
+    M --> A{Execution Mode}
+    A -->|--profile / default| SP[Static Profile Path]
+    A -->|--agent| AG[Agentic Path]
 
-    %% Retrieval Layer
-    subgraph Data_Retrieval [Retrieval & Enrichment]
-        Agent -->|Request Metadata| Client[API Client: Last.fm]
-        Client -->|Fetch Similar Artists/Tags| Cache[(API Cache)]
-        Cache -->|Normalized Data| Joiner[Data Normalizer]
-    end
+    ENV[(.env / environment vars)] --> M
+    CSV[(data/songs.csv)] --> M
+    CACHE[(data/api_cache/*.json)]
+    LOGS[(logs/agent.log)]
 
-    %% Scoring Logic
-    subgraph Scoring_Core [Recommender Engine]
-        CSV[(songs.csv)] --> Joiner
-        Joiner -->|Contextual Catalog| Engine[Scoring Function]
-        Profile -->|Target Vectors| Engine
-        Engine -->|Ranked Results| Results[Top Recommendations]
-    end
+    SP --> RS1[src/recommender.py::recommend_songs]
+    RS1 --> OUT1[Terminal Table Output]
 
-    %% Output
-    Results --> Tool2
-    Results -->|Final Selection + Reasoning| Output[CLI Output / Logs]
-    
-    %% Styling
-    style Agentic_Loop fill:#f9f,stroke:#333,stroke-width:2px
-    style Scoring_Core fill:#bbf,stroke:#333,stroke-width:2px
-    style Data_Retrieval fill:#dfd,stroke:#333,stroke-width:2px
+    AG --> RA[src/agent.py::RecommenderAgent.run]
+    RA --> EP[src/agent.py::extract_profile]
+    EP --> P[(Structured User Profile)]
+
+    RA -. optional --use-external-ai .-> LLMX[src/ai_inference.py::LLMProfileExtractor]
+    LLMX -. validates JSON .-> P
+
+    P --> RET[src/retriever.py::build_candidate_songs]
+    RET --> API[src/api_client.py::LastFmClient]
+    API <--> CACHE
+    API --> LFM[(Last.fm API)]
+    RET --> CAND[(Candidate Songs)]
+
+    CAND --> RS2[src/recommender.py::recommend_songs]
+    P --> RS2
+    RS2 --> TOPK[(Top-K recommendations + reasons)]
+
+    TOPK --> EVAL[src/evaluators.py::HeuristicEvaluator]
+    RA -. optional external eval .-> LLME[src/ai_inference.py::LLMEvaluationProvider]
+    LLME -. validated payload .-> EVAL
+
+    EVAL --> DEC{Refine?}
+    DEC -->|Yes| RP[(Refined Profile)]
+    RP --> RA
+    DEC -->|No| DONE[Finalize Results]
+
+    DONE --> OUT2[Terminal Table + Reasoning Chain]
+    EVAL --> SAFE[Confidence / Coverage Gap / Reliability Verdict]
+    SAFE --> OUT2
+    RA --> LOGS
+```
 
 ---
 
