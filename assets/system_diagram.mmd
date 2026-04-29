@@ -1,0 +1,81 @@
+flowchart TD
+    %% =========================
+    %% User / Entry Layer
+    %% =========================
+    U[User Query or CLI Command] --> M[src/main.py]
+    M --> A{Execution Mode}
+
+    A -->|--profile / default| SP[Static Profile Path]
+    A -->|--agent| AG[Agentic Path]
+
+    %% =========================
+    %% Data + Config
+    %% =========================
+    ENV[(.env / environment vars)]
+    CSV[(data/songs.csv)]
+    CACHE[(data/api_cache/*.json)]
+    LOGS[(logs/agent.log)]
+
+    ENV --> M
+    CSV --> M
+
+    %% =========================
+    %% Static Path
+    %% =========================
+    SP --> RS1[src/recommender.py::recommend_songs]
+    RS1 --> OUT1[Terminal Table Output]
+
+    %% =========================
+    %% Agentic Core
+    %% =========================
+    AG --> RA[src/agent.py::RecommenderAgent.run]
+    RA --> EP[src/agent.py::extract_profile]
+    EP --> P[(Structured User Profile)]
+
+    %% Optional external AI augmentation
+    RA -. optional --use-external-ai .-> LLMX[src/ai_inference.py::LLMProfileExtractor]
+    LLMX -. validates JSON .-> P
+
+    %% Retrieval and API expansion
+    P --> RET[src/retriever.py::build_candidate_songs]
+    RET --> API[src/api_client.py::LastFmClient]
+    API <--> CACHE
+    API --> LFM[(Last.fm API)]
+    RET --> CAND[(Candidate Songs)]
+
+    %% Deterministic ranking
+    CAND --> RS2[src/recommender.py::recommend_songs]
+    P --> RS2
+    RS2 --> TOPK[(Top-K recommendations + reasons)]
+
+    %% Evaluation / refinement loop
+    TOPK --> EVAL[src/evaluators.py::HeuristicEvaluator]
+    RA -. optional external eval .-> LLME[src/ai_inference.py::LLMEvaluationProvider]
+    LLME -. validated payload .-> EVAL
+    EVAL --> DEC{Refine?}
+    DEC -->|Yes| RP[(Refined Profile)]
+    RP --> RA
+    DEC -->|No| DONE[Finalize Results]
+
+    %% Outputs and observability
+    DONE --> OUT2[Terminal Table + Reasoning Chain]
+    RA --> LOGS
+    EVAL --> SAFE[Confidence / Coverage Gap / Safe Response]
+    SAFE --> OUT2
+
+    %% Testing + reliability boundary
+    TESTS[tests/* + pytest] --> REL[Reliability Signals]
+    REL --> EVAL
+    REL --> RA
+    REL --> RS2
+
+    %% Styling
+    classDef core fill:#dbeafe,stroke:#1e3a8a,stroke-width:1.5px,color:#0f172a;
+    classDef io fill:#dcfce7,stroke:#166534,stroke-width:1.5px,color:#052e16;
+    classDef ext fill:#fef3c7,stroke:#92400e,stroke-width:1.5px,color:#451a03;
+    classDef store fill:#ede9fe,stroke:#5b21b6,stroke-width:1.2px,color:#2e1065;
+
+    class M,RA,EP,RET,RS1,RS2,EVAL,LLMX,LLME core;
+    class U,OUT1,OUT2,SAFE,TESTS,REL io;
+    class LFM,ENV ext;
+    class CSV,CACHE,LOGS,P,CAND,TOPK,RP store;
