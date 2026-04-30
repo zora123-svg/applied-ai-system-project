@@ -14,6 +14,11 @@ venv/
 # Environment files
 .env
 .env.*
+!.env.example
 
 # Pytest cache
 .pytest_cache/
+
+# Runtime artifacts
+logs/
+data/api_cache/
