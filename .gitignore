@@ -13,6 +13,8 @@ venv/
 
 # Environment files
 .env
+.env.*
+!.env.example
 
 # Pytest cache
 .pytest_cache/

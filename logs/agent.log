@@ -675,3 +675,83 @@
 [2026-04-29 16:37:39] ITERATION 1 | top_result: Afterglow Boulevard (Skyline Youth) score=11.04
 [2026-04-29 16:37:39] ITERATION 1 | quality: 9/10 | confidence: 0.39 | coverage_gap: True | verdict: uncertain | feedback: Not reasonable: Dataset coverage gap: requested genre(s) not found in top candidates (k-pop). | Era intent unresolved: requested era is not represented in top recommendations.
 [2026-04-29 16:37:39] FINAL: 5 candidate(s) returned
+[2026-04-29 20:21:38] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-29 20:21:38] ITERATION 1 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 0.83, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:21:38] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-29 20:21:38] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=10.41
+[2026-04-29 20:21:38] ITERATION 1 | quality: 9/10 | confidence: 0.39 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:21:38] REFINED PROFILE: {'target_energy': 0.98, 'target_danceability': 0.73}
+[2026-04-29 20:21:38] ITERATION 2 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 0.98, 'target_danceability': 0.73, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:21:38] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 5}
+[2026-04-29 20:21:38] ITERATION 2 | top_result: Sunrise City (Neon Echo) score=10.19
+[2026-04-29 20:21:38] ITERATION 2 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:21:38] REFINED PROFILE: {'target_energy': 1.0, 'target_danceability': 0.8099999999999999}
+[2026-04-29 20:21:38] ITERATION 3 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 1.0, 'target_danceability': 0.8099999999999999, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:21:38] ITERATION 3 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 5}
+[2026-04-29 20:21:38] ITERATION 3 | top_result: Lagos Dawn (Solar Steps) score=10.23
+[2026-04-29 20:21:38] ITERATION 3 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:21:38] REFINED PROFILE: {'target_energy': 1.0, 'target_danceability': 0.8899999999999999}
+[2026-04-29 20:21:38] FINAL: 5 candidate(s) returned
+[2026-04-29 20:22:34] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-29 20:22:34] ITERATION 1 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 0.83, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:22:34] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-29 20:22:34] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=10.41
+[2026-04-29 20:22:34] ITERATION 1 | quality: 9/10 | confidence: 0.39 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:22:34] REFINED PROFILE: {'target_energy': 0.98, 'target_danceability': 0.73}
+[2026-04-29 20:22:34] ITERATION 2 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 0.98, 'target_danceability': 0.73, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:22:34] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 5}
+[2026-04-29 20:22:34] ITERATION 2 | top_result: Sunrise City (Neon Echo) score=10.19
+[2026-04-29 20:22:34] ITERATION 2 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:22:34] REFINED PROFILE: {'target_energy': 1.0, 'target_danceability': 0.8099999999999999}
+[2026-04-29 20:22:34] ITERATION 3 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 1.0, 'target_danceability': 0.8099999999999999, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:22:34] ITERATION 3 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 5}
+[2026-04-29 20:22:34] ITERATION 3 | top_result: Lagos Dawn (Solar Steps) score=10.23
+[2026-04-29 20:22:34] ITERATION 3 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:22:34] REFINED PROFILE: {'target_energy': 1.0, 'target_danceability': 0.8899999999999999}
+[2026-04-29 20:22:34] FINAL: 5 candidate(s) returned
+[2026-04-29 20:22:44] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-29 20:22:44] ITERATION 1 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 0.83, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:22:44] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-29 20:22:44] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=10.41
+[2026-04-29 20:22:44] ITERATION 1 | quality: 9/10 | confidence: 0.39 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:22:44] REFINED PROFILE: {'target_energy': 0.98, 'target_danceability': 0.73}
+[2026-04-29 20:22:44] ITERATION 2 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 0.98, 'target_danceability': 0.73, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:22:44] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 5}
+[2026-04-29 20:22:44] ITERATION 2 | top_result: Sunrise City (Neon Echo) score=10.19
+[2026-04-29 20:22:44] ITERATION 2 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:22:44] REFINED PROFILE: {'target_energy': 1.0, 'target_danceability': 0.8099999999999999}
+[2026-04-29 20:22:44] ITERATION 3 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 1.0, 'target_danceability': 0.8099999999999999, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:22:44] ITERATION 3 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 5}
+[2026-04-29 20:22:44] ITERATION 3 | top_result: Lagos Dawn (Solar Steps) score=10.23
+[2026-04-29 20:22:44] ITERATION 3 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:22:44] REFINED PROFILE: {'target_energy': 1.0, 'target_danceability': 0.8899999999999999}
+[2026-04-29 20:22:44] FINAL: 5 candidate(s) returned
+[2026-04-29 20:24:04] QUERY: "I want hip-hop music"
+[2026-04-29 20:24:04] ITERATION 1 | profile_delta: {'favorite_genre': 'hip-hop', 'target_danceability': 0.73, 'target_tempo': 104.0}
+[2026-04-29 20:24:04] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 3}
+[2026-04-29 20:24:04] ITERATION 1 | top_result: Polaroid Summer (Daydream Motel) score=10.32
+[2026-04-29 20:24:04] ITERATION 1 | quality: 8/10 | confidence: 0.13 | coverage_gap: True | verdict: uncertain | feedback: Not reasonable: Dataset coverage gap: requested genre(s) not found in top candidates (hip-hop).
+[2026-04-29 20:24:04] FINAL: 5 candidate(s) returned
+[2026-04-29 20:29:08] QUERY: "I want something like Radiohead but more upbeat"
+[2026-04-29 20:29:08] ITERATION 1 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 0.83, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:29:08] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 4}
+[2026-04-29 20:29:08] ITERATION 1 | top_result: Sunrise City (Neon Echo) score=10.41
+[2026-04-29 20:29:08] ITERATION 1 | quality: 9/10 | confidence: 0.39 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:29:08] REFINED PROFILE: {'target_energy': 0.98, 'target_danceability': 0.73}
+[2026-04-29 20:29:08] ITERATION 2 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 0.98, 'target_danceability': 0.73, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:29:08] ITERATION 2 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 5}
+[2026-04-29 20:29:08] ITERATION 2 | top_result: Sunrise City (Neon Echo) score=10.19
+[2026-04-29 20:29:08] ITERATION 2 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:29:08] REFINED PROFILE: {'target_energy': 1.0, 'target_danceability': 0.8099999999999999}
+[2026-04-29 20:29:08] ITERATION 3 | profile_delta: {'favorite_genre': 'rock', 'target_energy': 1.0, 'target_danceability': 0.8099999999999999, 'target_tempo': 120.0, 'seed_artist': 'Radiohead'}
+[2026-04-29 20:29:08] ITERATION 3 | inference: {'used_default_baseline': False, 'has_seed_artist': True, 'changed_fields_count': 5}
+[2026-04-29 20:29:08] ITERATION 3 | top_result: Lagos Dawn (Solar Steps) score=10.23
+[2026-04-29 20:29:08] ITERATION 3 | quality: 8/10 | confidence: 0.33 | coverage_gap: False | verdict: uncertain | feedback: Not reasonable: Increase target energy to better match upbeat requests. | Top results are not style-aligned with Radiohead; refining genre and groove targets.
+[2026-04-29 20:29:08] REFINED PROFILE: {'target_energy': 1.0, 'target_danceability': 0.8899999999999999}
+[2026-04-29 20:29:08] FINAL: 5 candidate(s) returned
+[2026-04-29 20:34:22] QUERY: "I want a rock track"
+[2026-04-29 20:34:22] ITERATION 1 | profile_delta: {'favorite_genre': 'rock'}
+[2026-04-29 20:34:22] ITERATION 1 | inference: {'used_default_baseline': False, 'has_seed_artist': False, 'changed_fields_count': 1}
+[2026-04-29 20:34:22] ITERATION 1 | top_result: Polaroid Summer (Daydream Motel) score=10.30
+[2026-04-29 20:34:22] ITERATION 1 | quality: 8/10 | confidence: 0.13 | coverage_gap: True | verdict: uncertain | feedback: Not reasonable: Dataset coverage gap: requested genre(s) not found in top candidates (rock).
+[2026-04-29 20:34:22] FINAL: 5 candidate(s) returned
